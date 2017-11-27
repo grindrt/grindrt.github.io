@@ -1,20 +1,5 @@
 const apiKey = 'cbcde34889f4417b9dce339f88f24de8';
 
-let sendRequest = url => {
-  return new Promise((resolve, reject)=>{
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.onerror = () => reject(xhr.statusText);
-    xhr.onload = () => {
-      if(xhr.status === 200){
-        resolve(xhr.response);
-      }else{
-        reject(xhr.statusText);
-      }
-    }
-    xhr.send(null);});
-}
-
 let getUrl = (endpoint, ...sourcesArr) => {
   let sources = sourcesArr.join(', ');
   return `https://newsapi.org/v2/${endpoint}?sources=${sources}&apiKey=${apiKey}`;
@@ -23,16 +8,18 @@ let getUrl = (endpoint, ...sourcesArr) => {
 let getNews = (source) => {
   let endpoint = 'top-headlines';
   let url = getUrl(endpoint, source);
-  sendRequest(url)
-  .then(fillNews)
+  fetch(url)
+  .then((resp)=>{
+  	resp.json().then(fillNews);
+  })  
   .catch(
-    (errorText)=>{
-      console.log(errorText);
+    (err)=>{
+      console.log(err);
     });
 }
 
 let fillNews = (data) => {
-  let {articles} = JSON.parse(data);
+  let {articles} = data;
   let html ='';
   articles.forEach(item=>{
     let imgUrl = item.urlToImage ? item.urlToImage : 'img/not-found.jpg';
