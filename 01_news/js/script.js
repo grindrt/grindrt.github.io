@@ -1,7 +1,6 @@
-const apiKey = 'cbcde34889f4417b9dce339f88f24de8';
-
-let getUrl = (endpoint, ...sourcesArr) => {
-  let sources = sourcesArr.join(', ');
+let getUrl = (endpoint, ...sourcesAtr) => {
+  const apiKey = 'cbcde34889f4417b9dce339f88f24de8';
+  let sources = sourcesAtr.join(', ');
   return `https://newsapi.org/v2/${endpoint}?sources=${sources}&apiKey=${apiKey}`;
 }
 
@@ -23,7 +22,7 @@ let fillNews = (data) => {
   let html ='';
   articles.forEach(item=>{
     let imgUrl = item.urlToImage ? item.urlToImage : 'img/not-found.jpg';
-    html += `<div id="news-container">
+    html += `<div class="news-container">
             <div class="news-img">
                 <img class="image" src='${imgUrl}'/>   
                 <a class="news-title" href="${item.url}"><span>${item.title}</span></a>  
