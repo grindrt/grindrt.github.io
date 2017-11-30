@@ -10,7 +10,7 @@ let getNews = (source) => {
   fetch(url)
   .then((resp)=>{
   	resp.json().then(fillNews);
-  })  
+  })
   .catch(
     (err)=>{
       console.log(err);
@@ -19,17 +19,15 @@ let getNews = (source) => {
 
 let fillNews = (data) => {
   let {articles} = data;
-  let html ='';
-  articles.forEach(item=>{
-  	let news = new NewsModel(item.title, item.description, item.url, item.urlToImage);
-    html += news.toHtml();
-  });
+  let newsMap = new Map();
+  articles.forEach((item, index)=>{ newsMap.set(index, new NewsModel(item.title, item.description, item.url, item.urlToImage)); });
+  let html = () => {
+    let html ='';
+    for (item of this.newsMap) { html += item.toHtml(); }
+    return html;
+  }
 
-
-    // just for examples
-    let titles = data.map(x=>x.title);
-
-  document.getElementById("news").innerHTML = html;
+  document.getElementById("news").innerHTML = html();
 }
 
 class NewsModel{
@@ -75,9 +73,9 @@ class NewsModel{
 	toHtml(){
 		return `<div class="news-container">
             		<div class="news-img">
-                		<img class="image" src='${this.imgUrl}'/>   
-                		<a class="news-title" href="${this.url}"><span>${this.title}</span></a>  
-                		<div class="description-container"> 
+                		<img class="image" src='${this.imgUrl}'/>
+                		<a class="news-title" href="${this.url}"><span>${this.title}</span></a>
+                		<div class="description-container">
                     		<div class="description-text"><p>${this.description}</p></div>
                 		</div>
             		</div>
