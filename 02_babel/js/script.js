@@ -5,17 +5,13 @@ let getUrl = (endpoint, ...sourcesAtr) => {
   let sources = sourcesAtr.join(', ');
   return `https://newsapi.org/v2/${endpoint}?sources=${sources}&apiKey=${apiKey}`;
 }
+
 let getNews = (source) => {
   let endpoint = 'top-headlines';
   let url = getUrl(endpoint, source);
   fetch(url)
-  .then((resp)=>{
-  	resp.json().then(fillNews);
-  })
-  .catch(
-    (err)=>{
-      console.log(err);
-    });
+  .then((resp) => {	resp.json().then(fillNews); })
+  .catch((err) => { console.log(err); });
 }
 
 let fillNews = (data) => {
@@ -24,9 +20,11 @@ let fillNews = (data) => {
   articles.forEach((item, index)=>{ newsMap.set(index, new NewsModel(item.title, item.description, item.url, item.urlToImage)); });
   let html = () => {
     let html ='';
-    for (item of this.newsMap) { html += item.toHtml(); }
+    for (let item of newsMap.values()) { html += item.toHtml(); }
     return html;
   }
 
   document.getElementById("news").innerHTML = html();
 }
+
+export {getNews};

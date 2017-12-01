@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script type="module" src="js/script.js"></script>
+    <script type="module" >
+      import {getNews} from "./js/script.js";
+      // very dirty solution
+      // possible will be replaced by addEventListener
+      window.getNews = getNews;
+    </script>
   </head>
   <body >
     <header>
