@@ -4,24 +4,20 @@
     <meta charset="utf-8">
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script type="module" >
-      import {getNews} from "./js/script.js";
-      // very dirty solution
-      // possible will be replaced by addEventListener
-      window.getNews = getNews;
-    </script>
   </head>
-  <body >
+  <body>
     <header>
       <ul class="buttons-icon">
-        <li><input class="w8-icon grey" id="bbc-news" type="button" value="BBC News" onclick="getNews('bbc-news')"></li>
-        <li><input class="w8-icon grey" id="the-next-web" type="button" value="The Next Web" onclick="getNews('the-next-web')"></li>
-        <li><input class="w8-icon grey" id="associated-press" type="button" value="Associated Press" onclick="getNews('associated-press')"></li>
+        <li><input class="w8-icon grey" type="button" value="BBC News" data-news data-source="bbc-news"></li>
+        <li><input class="w8-icon grey" type="button" value="The Next Web" data-news data-source="the-next-web"></li>
+        <li><input class="w8-icon grey" type="button" value="Associated Press" data-news data-source="associated-press"></li>
       </ul>
     </header>
     <div id="news"></div>
 	<footer>
 		Powered by <a href="https://newsapi.org/">NewsAPI.org</a>
 	</footer>
+
+  <script src="build/app.bundle.js"></script>
   </body>
 </html>

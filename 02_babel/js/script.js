@@ -1,5 +1,13 @@
 import { NewsModel, InheritanceForInheritance} from "./lib/models.js";
 
+const buttons = Array.from(document.querySelectorAll('[data-news]'));
+buttons.forEach((button)=>{
+  button.addEventListener('click', ()=>{
+    const source = button.dataset.source;
+    getNews(source);
+  })
+});
+
 let getUrl = (endpoint, ...sourcesAtr) => {
   const apiKey = 'cbcde34889f4417b9dce339f88f24de8';
   let sources = sourcesAtr.join(', ');
