@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+import 'babel-polyfill';
 import { NewsModel, InheritanceForInheritance} from "./lib/models.js";
 
 const buttons = Array.from(document.querySelectorAll('[data-news]'));
