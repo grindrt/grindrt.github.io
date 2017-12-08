@@ -1,8 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
+
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-     entry: ["element-dataset", "whatwg-fetch", "babel-polyfill", "./js/script.js"],
+     entry: ["element-dataset", "whatwg-fetch", "babel-polyfill", "./src/js/script.js"],
      output: {
          path: path.resolve(__dirname, 'build'),
          filename: 'app.bundle.js'
@@ -12,12 +14,25 @@ module.exports = {
              {
                  test: /\.js$/,
                  loader: 'babel-loader',
+                exclude: /(node_modules)/,
                  query: {
                      presets: ['es2015']
                  }
              }
-         ]
+         ],
+         rules: [
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader']
+                })
+            }
+        ]
      },
+        plugins: [
+            new ExtractTextPlugin('style.css')
+        ],
      stats: {
          colors: true
      },
