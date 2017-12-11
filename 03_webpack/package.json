@@ -32,13 +32,14 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
-    "webpack": "^3.8.1"
+    "webpack": "^3.10.0"
   },
   "dependencies": {
     "element-dataset": "^2.2.6",
     "es5-shim": "^4.5.9",
     "fetch-polyfill": "^0.8.2",
     "js-polyfills": "^0.1.41",
+    "webpack-dev-server": "^2.9.7",
     "whatwg-fetch": "^2.0.3"
   }
 }
