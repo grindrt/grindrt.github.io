@@ -10048,7 +10048,7 @@ let fillNews = (data) => {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewsModel; });
 /* unused harmony export InheritanceForInheritance */
-class NewsModel{
+class NewsModel {
 	constructor(title, description, url, imgUrl){
 		this.title = title;
 		this.description = description;

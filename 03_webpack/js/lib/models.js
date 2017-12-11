@@ -1,4 +1,4 @@
-class NewsModel{
+class NewsModel {
 	constructor(title, description, url, imgUrl){
 		this.title = title;
 		this.description = description;
