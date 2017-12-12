@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 361:
+/***/ 332:
 /***/ (function(module, exports) {
 
 let getUrl = (endpoint, ...sourcesAtr) => {
@@ -37,4 +37,4 @@ let fillNews = (data) => {
 /***/ })
 
 });
-//# sourceMappingURL=0.bundle.js.map
+//# sourceMappingURL=loadNews.bundle.js.map
