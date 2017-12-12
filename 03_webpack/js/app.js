@@ -8,8 +8,7 @@ buttons.forEach((button) => {
 	button.addEventListener('click',
 		() => {
 			const source = button.getAttribute('data-source');
-			import
-			('./lib/loadNews.js')
+			import('./lib/loadNews.js')
 				.then(module => {
 					module.getNews(source);
 				})

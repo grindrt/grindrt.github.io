@@ -136,7 +136,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/build";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
@@ -10079,48 +10079,20 @@ __webpack_require__(359);
 
 
 const buttons = Array.from(document.querySelectorAll('[data-news]'));
-buttons.forEach((button)=>{
-  button.addEventListener('click', ()=>{
-    const source = button.getAttribute('data-source');
-    
-    __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 361)).then(module=>{
-      module.getNews(source); 
-    }).catch(err => {
-      console.log("Chunk loading failed");
-      console.log(err);
-    });
-  })
+buttons.forEach((button) => {
+	button.addEventListener('click',
+		() => {
+			const source = button.getAttribute('data-source');
+			__webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 361))
+				.then(module => {
+					module.getNews(source);
+				})
+				.catch(err => {
+					console.log("Chunk loading failed");
+					console.log(err);
+				});
+		});
 });
-
-// let getUrl = (endpoint, ...sourcesAtr) => {
-//   const apiKey = 'cbcde34889f4417b9dce339f88f24de8';
-//   let sources = sourcesAtr.join(', ');
-//   return `https://newsapi.org/v2/${endpoint}?sources=${sources}&apiKey=${apiKey}`;
-// }
-
-// let getNews = (source) => {
-//   let endpoint = 'top-headlines';
-//   let url = getUrl(endpoint, source);
-//   fetch(url)
-//   .then((resp) => {	resp.json().then(fillNews); })
-//   .catch((err) => { console.log(err); });
-// }
-
-// let fillNews = (data) => {
-//   let {articles} = data;
-//   let newsMap = new Map();
-//   articles.forEach((item, index)=>{ newsMap.set(index, new NewsModel(item.title, item.description, item.url, item.urlToImage)); });
-//   let html = () => {
-//     let html ='';
-//     for (let item of newsMap.values()) { html += item.toHtml(); }
-//     return html;
-//   }
-
-//   document.getElementById("news").innerHTML = html();
-// }
-
-// export {getNews};
-
 
 /***/ }),
 /* 359 */
@@ -10136,46 +10108,46 @@ buttons.forEach((button)=>{
 /* unused harmony export NewsModel */
 /* unused harmony export InheritanceForInheritance */
 class NewsModel {
-	constructor(title, description, url, imgUrl){
+	constructor(title, description, url, imgUrl) {
 		this.title = title;
 		this.description = description;
 		this.url = url;
 		this.imgUrl = imgUrl;
 	}
 
-	get title(){
+	get title() {
 		return this._title;
 	}
 
-	set title(value){
+	set title(value) {
 		this._title = value;
 	}
 
-	get description(){
+	get description() {
 		return this._description;
 	}
 
-	set description(value){
+	set description(value) {
 		this._description = value;
 	}
 
-	get url(){
+	get url() {
 		return this._url;
 	}
 
-	set url(value){
+	set url(value) {
 		this._url = value;
 	}
 
-	get imgUrl(){
+	get imgUrl() {
 		return this._imgUrl ? this._imgUrl : 'img/not-found.jpg';
 	}
 
-	set imgUrl(value){
+	set imgUrl(value) {
 		this._imgUrl = value;
 	}
 
-	toHtml(){
+	toHtml() {
 		return `<div class="news-container">
             		<div class="news-img">
                 		<img class="image" src='${this.imgUrl}'/>
