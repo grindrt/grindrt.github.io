@@ -1,6 +1,6 @@
 module.exports = (source) => {
   let value = typeof source === "string" ? JSON.parse(source) : source;
-  return "module.exports = '" + JSON.stringify((value)) + "';";
+  return "module.exports = '" + JSON.stringify(removeNumberAttributes(value)) + "';";
 };
 
 let removeNumberAttributes = (source) => {
