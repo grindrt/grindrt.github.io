@@ -87,7 +87,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "32848aa6c3b319a78f31"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d20b7cc0f2d942a211f8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -639,7 +639,9 @@
 	__webpack_require__(1);
 	__webpack_require__(344);
 	__webpack_require__(348);
-	module.exports = __webpack_require__(350);
+	__webpack_require__(350);
+	__webpack_require__(352);
+	__webpack_require__(354);
 
 
 /***/ }),
@@ -650,7 +652,6 @@
 	'use strict';
 	
 	document.addEventListener("DOMContentLoaded", function () {
-	    // var bbcNewsButton = document.getElementById("bbc-news");
 	    var buttons = Array.from(document.querySelectorAll('[data-news]'));
 	    buttons.forEach(function (button) {
 	        button.addEventListener('click', function () {
@@ -680,6 +681,20 @@
 /***/ }),
 
 /***/ 350:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 352:
+/***/ (function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 354:
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

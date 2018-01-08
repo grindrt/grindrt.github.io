@@ -8,7 +8,14 @@ var extractCSS = new ExtractTextPlugin("bundle.css");
 
 module.exports = {
     entry: {
-        main: ["./src/home/home", "./src/common/styles/site.less", "./src/feed/styles/feed.less", "./json/test.json"],
+        main: [
+          "./src/home/home",
+          "./src/styles/buttons.less",
+          "./src/styles/feed.less",
+          "./src/styles/footer.less",
+          "./src/styles/site.less",
+          , "./json/test.json"
+        ],
     },
     output: {
         path: path.join( __dirname, "/dist"),

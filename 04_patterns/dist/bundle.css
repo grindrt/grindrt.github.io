@@ -1,3 +1,163 @@
+.news-btn {
+  color: white;
+  background: #ACAEBF;
+  padding: .7em 1.5em;
+  outline: none;
+  height: 80%;
+}
+.news-btn:hover {
+  background: #393A3F;
+}
+.news-btn:active {
+  background: #72747F;
+}
+.w8-icon {
+  transition: 0.2s all ease;
+  -moz-transition: 0.2s all ease;
+  -webkit-transition: 0.2s all ease;
+  -o-transition: 0.2s all ease;
+  -ms-transition: 0.2s all ease;
+}
+.w8-icon {
+  display: table;
+  padding: 7px 7px 7px 7px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  min-width: 6em;
+  height: 6em;
+  font-size: 1.5em;
+  outline: none;
+}
+.w8-icon:hover {
+  opacity: 1;
+}
+.w8-icon:active {
+  color: white !important;
+  background-color: #191919 !important;
+}
+.w8-icon.grey {
+  background-color: #474747;
+}
+ul.buttons-icon {
+  display: table;
+  list-style: none;
+  margin: 0px auto;
+}
+ul.buttons-icon li {
+  float: left;
+}
+ul.buttons-icon li:last-child {
+  margin-right: 0;
+}
+#latest-news {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0;
+  width: auto;
+}
+#top-news {
+  background-color: #ffffff;
+  margin: 0;
+  width: auto;
+  padding: 19px 23px;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  box-shadow: 0 2px 0 0 #DEE2E5, inset 0 -40px 0 0 #EAEEF1;
+  margin-bottom: 32px;
+  width: 100%;
+}
+.article footer {
+  background-color: #ebeef0;
+  font-size: 12pt;
+  padding: 19px;
+}
+.article footer p {
+  margin: 0;
+}
+@media (min-width: 992px) {
+  .article {
+    width: 300px;
+  }
+}
+@media (min-width: 1280px) {
+  .article {
+    width: 380px;
+  }
+}
+.article .article-image {
+  order: 1;
+}
+.article .article-heading {
+  order: 2;
+}
+.article .article-description {
+  order: 3;
+}
+.article .article-footer {
+  order: 4;
+}
+.article-title {
+  font-size: 18pt;
+  padding: 19px 19px 0 19px;
+}
+.article-title a {
+  color: #6a7884 !important;
+}
+.article-image {
+  display: flex;
+}
+.article-image img {
+  height: 100%;
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .article-image img {
+    width: 300px;
+  }
+}
+@media (min-width: 1280px) {
+  .article-image img {
+    width: 380px;
+  }
+}
+.article-description {
+  padding: 19px;
+}
+.article-aside {
+  display: flex;
+  margin-bottom: 15px;
+}
+.article-aside .article-heading {
+  order: 2;
+  margin-left: 10px;
+}
+.article-aside .article-heading h2 {
+  font-size: 14pt;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 0;
+}
+.article-aside .article-body img {
+  height: 70px;
+  width: auto;
+}
+footer {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3em;
+}
 html {
   height: 100%;
 }
@@ -189,104 +349,6 @@ nav ul {
     display: flex;
     width: 380px;
   }
-}
-#latest-news {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0;
-  width: auto;
-}
-#top-news {
-  background-color: #ffffff;
-  margin: 0;
-  width: auto;
-  padding: 19px 23px;
-}
-.article {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #ffffff;
-  box-shadow: 0 2px 0 0 #DEE2E5, inset 0 -40px 0 0 #EAEEF1;
-  margin-bottom: 32px;
-  width: 100%;
-}
-.article footer {
-  background-color: #ebeef0;
-  font-size: 12pt;
-  padding: 19px;
-}
-.article footer p {
-  margin: 0;
-}
-@media (min-width: 992px) {
-  .article {
-    width: 300px;
-  }
-}
-@media (min-width: 1280px) {
-  .article {
-    width: 380px;
-  }
-}
-.article .article-image {
-  order: 1;
-}
-.article .article-heading {
-  order: 2;
-}
-.article .article-description {
-  order: 3;
-}
-.article .article-footer {
-  order: 4;
-}
-.article-title {
-  font-size: 18pt;
-  padding: 19px 19px 0 19px;
-}
-.article-title a {
-  color: #6a7884 !important;
-}
-.article-image {
-  display: flex;
-}
-.article-image img {
-  height: 100%;
-  width: 100%;
-}
-@media (min-width: 992px) {
-  .article-image img {
-    width: 300px;
-  }
-}
-@media (min-width: 1280px) {
-  .article-image img {
-    width: 380px;
-  }
-}
-.article-description {
-  padding: 19px;
-}
-.article-aside {
-  display: flex;
-  margin-bottom: 15px;
-}
-.article-aside .article-heading {
-  order: 2;
-  margin-left: 10px;
-}
-.article-aside .article-heading h2 {
-  font-size: 14pt;
-  font-family: 'Ubuntu', sans-serif;
-  padding: 0;
-}
-.article-aside .article-body img {
-  height: 70px;
-  width: auto;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

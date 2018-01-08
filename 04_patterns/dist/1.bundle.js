@@ -31,7 +31,6 @@ webpackJsonp([1],[
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	//reducers
 	var replaceArticles = function replaceArticles(newArticles) {
 	    return [].concat(_toConsumableArray(newArticles));
 	};
@@ -120,7 +119,6 @@ webpackJsonp([1],[
 	};
 	
 	feedStore.subscribe(renderFeed);
-	// updateFeed();
 	
 	exports.updateFeed = updateFeed;
 
@@ -9790,8 +9788,6 @@ webpackJsonp([1],[
 	
 	var buildNewsFeed = function buildNewsFeed(articles) {
 	    var buildHeader = function buildHeader(article) {
-	        //let link = new CompositeElement("a", {target: "_blank", href: article.url});
-	
 	        var header = new _compositeElement2.default("h2", { class: "article-title" });
 	        header.add(new _textElement2.default(article.title));
 	
@@ -9971,6 +9967,7 @@ webpackJsonp([1],[
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
+	//factory
 	var Element = function () {
 	    function Element(type, attributes) {
 	        _classCallCheck(this, Element);
@@ -9983,11 +9980,9 @@ webpackJsonp([1],[
 	        key: "draw",
 	        value: function draw() {
 	            var element = document.createElement(this.type);
-	
 	            for (var attribute in this.attributes) {
 	                element.setAttribute(attribute, this.attributes[attribute]);
 	            }
-	
 	            return element;
 	        }
 	    }]);
