@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+
+<script>
+class NewsApiClient {
+    static GetNews(source, apiKey) {
+        const url = `https://newsapi.org/v1/articles?source=${source}&apiKey=${apiKey}`;
+
+        var wrappedPromise = getWrappedPromise();
+
+        fetch.apply(null, url)
+            .then(response => wrappedPromise.resolve(response),
+                error => wrappedPromise.reject(error))
+            .catch(error => wrappedPromise.catch(error));
+
+        return wrappedPromise;
+    }
+}
+</script>
+</html>
+
