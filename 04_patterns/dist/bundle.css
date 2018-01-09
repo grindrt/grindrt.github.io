@@ -1,0 +1,354 @@
+.news-btn {
+  color: white;
+  background: #ACAEBF;
+  padding: .7em 1.5em;
+  outline: none;
+  height: 80%;
+}
+.news-btn:hover {
+  background: #393A3F;
+}
+.news-btn:active {
+  background: #72747F;
+}
+.w8-icon {
+  transition: 0.2s all ease;
+  -moz-transition: 0.2s all ease;
+  -webkit-transition: 0.2s all ease;
+  -o-transition: 0.2s all ease;
+  -ms-transition: 0.2s all ease;
+}
+.w8-icon {
+  display: table;
+  padding: 7px 7px 7px 7px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  min-width: 6em;
+  height: 6em;
+  font-size: 1.5em;
+  outline: none;
+}
+.w8-icon:hover {
+  opacity: 1;
+}
+.w8-icon:active {
+  color: white !important;
+  background-color: #191919 !important;
+}
+.w8-icon.grey {
+  background-color: #474747;
+}
+ul.buttons-icon {
+  display: table;
+  list-style: none;
+  margin: 0px auto;
+}
+ul.buttons-icon li {
+  float: left;
+}
+ul.buttons-icon li:last-child {
+  margin-right: 0;
+}
+#latest-news {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0;
+  width: auto;
+}
+#top-news {
+  background-color: #ffffff;
+  margin: 0;
+  width: auto;
+  padding: 19px 23px;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  box-shadow: 0 2px 0 0 #DEE2E5, inset 0 -40px 0 0 #EAEEF1;
+  margin-bottom: 32px;
+  width: 100%;
+}
+.article footer {
+  background-color: #ebeef0;
+  font-size: 12pt;
+  padding: 19px;
+}
+.article footer p {
+  margin: 0;
+}
+@media (min-width: 992px) {
+  .article {
+    width: 300px;
+  }
+}
+@media (min-width: 1280px) {
+  .article {
+    width: 380px;
+  }
+}
+.article .article-image {
+  order: 1;
+}
+.article .article-heading {
+  order: 2;
+}
+.article .article-description {
+  order: 3;
+}
+.article .article-footer {
+  order: 4;
+}
+.article-title {
+  font-size: 18pt;
+  padding: 19px 19px 0 19px;
+}
+.article-title a {
+  color: #6a7884 !important;
+}
+.article-image {
+  display: flex;
+}
+.article-image img {
+  height: 100%;
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .article-image img {
+    width: 300px;
+  }
+}
+@media (min-width: 1280px) {
+  .article-image img {
+    width: 380px;
+  }
+}
+.article-description {
+  padding: 19px;
+}
+.article-aside {
+  display: flex;
+  margin-bottom: 15px;
+}
+.article-aside .article-heading {
+  order: 2;
+  margin-left: 10px;
+}
+.article-aside .article-heading h2 {
+  font-size: 14pt;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 0;
+}
+.article-aside .article-body img {
+  height: 70px;
+  width: auto;
+}
+footer {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3em;
+}
+html {
+  height: 100%;
+}
+body {
+  background-color: #f7f8fA;
+  color: #6a7884;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14pt;
+  font-weight: 400;
+  margin: 0;
+  min-height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+a {
+  text-decoration: none;
+}
+h1,
+h2 {
+  color: #6a7884;
+  font-family: 'Vollkorn', serif;
+  font-size: 28pt;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  text-transform: uppercase;
+}
+nav {
+  font-weight: 300;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+nav ul {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin: auto 20px;
+}
+@media (min-width: 768px) {
+  .container {
+    margin: auto;
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    margin: auto;
+    width: 960px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    margin: auto;
+    width: 1200px;
+  }
+}
+.page-header {
+  background-color: #34495e;
+}
+.page-header .additional-header {
+  background-color: #2c3e50;
+}
+.page-header .additional-header li {
+  margin-left: 23px;
+}
+.page-header .additional-header .container {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40px;
+}
+.page-header .additional-header .container a {
+  color: #bbc5d0;
+}
+@media (min-width: 768px) {
+  .page-header .main-header ul {
+    margin-left: 62.5px;
+  }
+}
+@media (min-width: 992px) {
+  .page-header .main-header ul {
+    margin-left: 102.5px;
+  }
+}
+@media (min-width: 1280px) {
+  .page-header .main-header ul {
+    margin-left: 142.5px;
+  }
+}
+.page-header .main-header li {
+  margin-left: 26px;
+}
+@media (min-width: 768px) {
+  .page-header .main-header li {
+    margin-right: 26px;
+  }
+}
+.page-header .main-header .container {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 51px;
+}
+.page-header .main-header .container .logo {
+  font-size: 24pt;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.page-header .main-header .container a {
+  color: #ffffff;
+}
+@media (min-width: 768px) {
+  .page-header .main-header .container {
+    justify-content: flex-start;
+  }
+}
+.page-title {
+  margin: 40px 0 30px 0;
+}
+.page-content {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex: auto;
+}
+.page-footer {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  background-color: #34495e;
+  color: #ffffff;
+  font-weight: 300;
+  height: 72px;
+}
+.page-footer a {
+  color: #ffffff;
+}
+.page-footer .container {
+  margin: auto;
+}
+#main-content {
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  #main-content {
+    width: 460px;
+  }
+}
+@media (min-width: 992px) {
+  #main-content {
+    width: 620px;
+    margin-right: 10px;
+  }
+}
+@media (min-width: 1280px) {
+  #main-content {
+    width: 780px;
+    margin-right: 10px;
+  }
+}
+#sidebar {
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 10px;
+  display: none;
+}
+@media (min-width: 992px) {
+  #sidebar {
+    display: flex;
+    width: 300px;
+  }
+}
+@media (min-width: 1280px) {
+  #sidebar {
+    display: flex;
+    width: 380px;
+  }
+}
+
+/*# sourceMappingURL=bundle.css.map*/
