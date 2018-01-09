@@ -1,6 +1,7 @@
-class Prototype{
-  constructor(prototype){}
+class Prototype {
+	constructor(prototype) {
+	}
 
-  Clone (){    
-  }
+	Clone () {
+	}
 }

@@ -15,7 +15,7 @@ module.exports = {
           "./src/styles/footer.less",
           "./src/styles/site.less",
           , "./json/test.json"
-        ],
+        ]
     },
     output: {
         path: path.join( __dirname, "/dist"),

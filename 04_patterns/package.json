@@ -1,11 +1,22 @@
 {
-  "name": "froncamp3",
+  "name": "front_camp",
   "version": "1.0.0",
-  "main": "site.js",
+  "description": "",
+  "main": "index.html",
   "scripts": {
     "build": "webpack --config webpack.debug.config.js",
     "start": "webpack-dev-server --config webpack.debug.config.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grindrt/grindrt.github.io.git"
+  },
+  "author": "Kasak Andrei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grindrt/grindrt.github.io/issues"
+  },
+  "homepage": "https://github.com/grindrt/grindrt.github.io#readme",
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.8",
