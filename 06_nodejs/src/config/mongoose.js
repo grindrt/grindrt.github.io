@@ -1,7 +1,8 @@
 const logger = require('../logger.js');
+const config = require('../../config.json');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/blogs');
+mongoose.connect(config.dbUrl);
 const db = mongoose.connection;
 
 db.on('error', (err)=>{

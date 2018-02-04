@@ -1,4 +1,4 @@
-const mongoose = require('../dal/mongoose.js');
+const mongoose = require('../config/mongoose.js');
 
 const ArticleSchema = new mongoose.Schema({
 

@@ -1,86 +1,29 @@
-module.exports = (app, db, logger) => {
+const tokenGenerator = require('../config/tokenGenerator.js').tokenGenerator;
 
-  app.get('/users', (req, res)=>{
-    ArticleModel.find((err, articles)=>{
-        if(err){
-          return errorLog(err, res);
-      }else{
-        return res.send(articles);
-      }
-    });
-  });
+module.exports = (app, db, logger, passport) => {
+  // app.get('/', (req, res, next)=>{
+  //   res.render('home', {user: req.user});
+  // });
+  //
+  // app.get('/login', (req, res, next)=>{
+  //   res.send({message: req.flash('loginMessage')});
+  // });
+  //
+  // app.post('/login',
+  //   passport.authenticate('local', {failureRedirect: '/login'}),
+  //   (req, res, next)=>{
+  //     res.redirect('/');
+  // });
 
-  app.get('/blogs/:id', (req, res)=>{
-    ArticleModel.findById(req.params.id, (err, article)=>{
-      if(!article){
-        return notFoundLog(res);
-      }
-      if(err){
-        return errorLog(err, res);
-      }else{
-        return res.send(article);
-      }
-    });
-  });
 
-  app.post('/blogs', (req, res)=>{
-    let article = new ArticleModel({
-      title: req.body.title,
-      description: req.body.description,
-      author: req.body.author
-    });
+    app.post('/login',
+    passport.authenticate('local-login'),
+    (req, res, next)=>{
+      console.log(req);
 
-    article.save((err)=>{
-      if(err) {
-        return errorLog(err, res);
-      } else {
-        logger.log({ level: 'info', message: 'Article was created' });
-        return res.send({ status: 'OK', article:article });
-      }
-    });
-  });
+      const token = tokenGenerator.generateToken(req.user._id);
 
-  app.put('/blogs/:id', (req, res)=>{
-    ArticleModel.findById(req.params.id, (err, article)=>{
-      if(!article) {
-        return notFoundLog(res);
-      }
-      if(err){
-        return errorLog(err, res);
-      } else {
-        article.title = req.body.title;
-        article.description = req.body.description;
-        article.author = req.body.author;
-
-        return article.save((err)=>{
-          if (err) {
-            return errorLog(err, res);
-          } else {
-            logger.log({ level: 'info', message: 'Article was updated' });
-            return res.send({ status: 'OK', article: article });
-          }
-        });
-      }
-    });
-  });
-
-  app.delete('/blogs/:id', (req, res)=>{
-    ArticleModel.findById(req.params.id, (err, article)=>{
-      if(!article) {
-        return notFoundLog(res);
-      }
-      if(err){
-        return errorLog(err, res);
-      } else {
-        return article.remove((err)=>{
-          if (err) {
-            return errorLog(err, res);
-          } else {
-            logger.log({ level: 'info', message: 'Article was updated' });
-            return res.send({ status: 'OK' });
-          }
-        });
-      }
-    });
-  });
+      res.send(token);
+    }
+  )
 };

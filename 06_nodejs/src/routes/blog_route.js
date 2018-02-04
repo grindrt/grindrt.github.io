@@ -1,32 +1,41 @@
+const tokenGenerator = require('../config/tokenGenerator.js').tokenGenerator;
 const ArticleModel = require('../models/ArticleModel.js');
 
 module.exports = (app, db, logger) => {
-
-  app.get('/blogs', (req, res)=>{
+//
+  app.get('/blogs',
+    tokenGenerator.checkAccessToken,
+    (req, res, next)=>{
     ArticleModel.find((err, articles)=>{
-        if(err){
-          return errorLog(err, res);
-      }else{
+        if(err) {
+          next(err);
+        }
+
         return res.send(articles);
-      }
     });
   });
 
-  app.get('/blogs/:id', (req, res, next)=>{
+  app.get('/blogs/:id',
+    tokenGenerator.checkAccessToken,
+    (req, res, next)=>{
     ArticleModel.findById(req.params.id, (err, article)=>{
-      if(!article){        
-        // return notFoundLog(res);
-        next();
+      if(!article){
+        const err = new Error();
+        err.status = 404;
+        next(err);
       }
-      // if(err){
-      //   return errorLog(err, res);
-      // }else{
-        return res.send(article);
-      // }
+
+      if(err){
+        next(err);
+      }
+
+      return res.send(article);
      });
   });
 
-  app.post('/blogs', (req, res)=>{
+  app.post('/blogs',
+    tokenGenerator.checkAccessToken,
+    (req, res)=>{
     let article = new ArticleModel({
       title: req.body.title,
       description: req.body.description,
@@ -34,66 +43,66 @@ module.exports = (app, db, logger) => {
     });
 
     article.save((err)=>{
-      if(err) {
-        return errorLog(err, res);
-      } else {
-        logger.log({ level: 'info', message: 'Article was created' });
-        return res.send({ status: 'OK', article:article });
+      if (err) {
+        next(err);
       }
+
+      logger.log({ level: 'info', message: 'Article was created' });
+      return res.send({ status: 'OK', article:article });
     });
   });
 
-  app.put('/blogs/:id', (req, res)=>{
+  app.put('/blogs/:id',
+    tokenGenerator.checkAccessToken,
+    (req, res)=>{
     ArticleModel.findById(req.params.id, (err, article)=>{
-      if(!article) {
-        return notFoundLog(res);
+      if(!article){
+        var err = new Error();
+        err.status = 404;
+        next(err);
       }
-      if(err){
-        return errorLog(err, res);
-      } else {
-        article.title = req.body.title;
-        article.description = req.body.description;
-        article.author = req.body.author;
 
-        return article.save((err)=>{
-          if (err) {
-            return errorLog(err, res);
-          } else {
-            logger.log({ level: 'info', message: 'Article was updated' });
-            return res.send({ status: 'OK', article: article });
-          }
-        });
+      if(err){
+        next(err);
       }
+
+      article.title = req.body.title;
+      article.description = req.body.description;
+      article.author = req.body.author;
+
+      return article.save((err)=>{
+        if (err) {
+          next(err);
+        }
+
+        logger.log({ level: 'info', message: 'Article was updated' });
+        return res.send({ status: 'OK', article: article });
+      });
     });
   });
 
-  app.delete('/blogs/:id', (req, res)=>{
+  app.delete('/blogs/:id',
+    tokenGenerator.checkAccessToken,
+    (req, res)=>{
     ArticleModel.findById(req.params.id, (err, article)=>{
-      if(!article) {
-        return notFoundLog(res);
+      if(!article){
+        var err = new Error();
+        err.status = 404;
+        next(err);
       }
+
       if(err){
-        return errorLog(err, res);
-      } else {
-        return article.remove((err)=>{
-          if (err) {
-            return errorLog(err, res);
-          } else {
-            logger.log({ level: 'info', message: 'Article was updated' });
-            return res.send({ status: 'OK' });
-          }
-        });
+        next(err);
       }
+
+      return article.remove((err)=>{
+        if (err) {
+          next(err);
+        }
+
+        logger.log({ level: 'info', message: 'Article was updated' });
+        return res.send({ status: 'OK' });
+      });
     });
   });
-}
-
-const notFoundLog = (res) => {
-    logger.log({ level: 'error', message: 'Article not found' });
-    return res.status(404).send({error: 'Not found' });
-}
-
-const errorLog = (err, res) => {
-  logger.log({ level: 'error', message: 'Internal server error: 500 - ' + err.message });
-  return res.status(500).send({ error: 'Internal server error' });
-}
+};
