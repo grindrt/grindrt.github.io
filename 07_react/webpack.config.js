@@ -1,36 +1,38 @@
 let webpack = require('webpack');
+let path = require('path');
 
-module.exports = {
-  devtool: 'eval',
+const APP_DIR = path.resolve(__dirname, 'src/client/app');
+const BUILD_DIR = path.resolve(__dirname, 'src/public');
+
+let config = {
+  // devtool: 'eval',
   entry: {
     client: [
-     'babel-polyfill',
-     './src/client/index.js',
+     // 'babel-polyfill',
+     APP_DIR + '/index.js',
     ]
   },
   output: {
-    path: __dirname + '/dist',
+    path: BUILD_DIR,
     filename: 'bundle.js',
-    publicPath: '/dist/'
+    publicPath: '/public/'
   },
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.js|\.jsx)$/,
-        loader: process.env.NODE_ENV !== 'production'
-          ? 'react-hot-loader/webpack!babel-loader'
-          : 'babel-loader',
+        loader: 'babel-loader',
         exclude: [/node_modules/, /public/]
       },
-      {
-        test: /(\.css|\.scss)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ]
-      }
+      // {
+      //   test: /(\.css|\.scss)$/,
+      //   use: [
+      //     'style-loader',
+      //     'css-loader',
+      //     'sass-loader',
+      //   ]
+      // }
     ]
   },
   plugins: [
@@ -41,3 +43,47 @@ module.exports = {
     })
  ]
 };
+
+module.exports = config;
+
+// module.exports = {
+//   devtool: 'eval',
+//   entry: {
+//     client: [
+//      'babel-polyfill',
+//      './src/client/index.js',
+//     ]
+//   },
+//   output: {
+//     path: __dirname + '/dist',
+//     filename: 'bundle.js',
+//     publicPath: '/dist/'
+//   },
+//   devtool: 'inline-source-map',
+//   module: {
+//     loaders: [
+//       {
+//         test: /(\.js|\.jsx)$/,
+//         loader: process.env.NODE_ENV !== 'production'
+//           ? 'react-hot-loader/webpack!babel-loader'
+//           : 'babel-loader',
+//         exclude: [/node_modules/, /public/]
+//       },
+//       {
+//         test: /(\.css|\.scss)$/,
+//         use: [
+//           'style-loader',
+//           'css-loader',
+//           'sass-loader',
+//         ]
+//       }
+//     ]
+//   },
+//   plugins: [
+//     new webpack.DefinePlugin({
+//       'process.env.COSMIC_BUCKET': JSON.stringify(process.env.COSMIC_BUCKET),
+//       'process.env.COSMIC_READ_KEY': JSON.stringify(process.env.COSMIC_READ_KEY),
+//       'process.env.COSMIC_WRITE_KEY': JSON.stringify(process.env.COSMIC_WRITE_KEY)
+//     })
+//  ]
+// };
