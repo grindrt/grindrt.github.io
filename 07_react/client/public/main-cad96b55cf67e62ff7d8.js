@@ -25,11 +25,11 @@ if (process.env.NODE_ENV !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(159)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(158)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(160)();
+  module.exports = __webpack_require__(159)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
@@ -113,7 +113,7 @@ exports.default = http;
 "use strict";
 
 
-var _react = __webpack_require__(28);
+var _react = __webpack_require__(30);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -139,29 +139,36 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(28);
+var _react = __webpack_require__(30);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Main = __webpack_require__(156);
+var _BlogList = __webpack_require__(156);
 
-var _Main2 = _interopRequireDefault(_Main);
-
-var _main = __webpack_require__(162);
-
-var _main2 = _interopRequireDefault(_main);
+var _BlogList2 = _interopRequireDefault(_BlogList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react2.default.createElement(
     'div',
-    { className: _main2.default.app },
-    _react2.default.createElement(_Main2.default, null)
+    null,
+    _react2.default.createElement(_BlogList2.default, null)
   );
 };
 
 exports.default = App;
+
+// import React from 'react';
+// import BlogList from '../BlogList/BlogList';
+
+// const Main = () => (
+//   <main>
+//     <BlogList />
+//   </main>
+// );
+
+// export default Main;
 
 /***/ }),
 
@@ -175,51 +182,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(28);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BlogList = __webpack_require__(157);
-
-var _BlogList2 = _interopRequireDefault(_BlogList);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Main = function Main() {
-  return _react2.default.createElement(
-    'main',
-    null,
-    _react2.default.createElement(_BlogList2.default, null)
-  );
-};
-
-exports.default = Main;
-
-/***/ }),
-
-/***/ 157:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(28);
+var _react = __webpack_require__(30);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BlogItem = __webpack_require__(158);
+var _BlogItem = __webpack_require__(157);
 
 var _BlogItem2 = _interopRequireDefault(_BlogItem);
 
-var _AddBlog = __webpack_require__(161);
+var _AddBlog = __webpack_require__(160);
 
 var _AddBlog2 = _interopRequireDefault(_AddBlog);
 
@@ -246,16 +221,24 @@ var BlogList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (BlogList.__proto__ || Object.getPrototypeOf(BlogList)).call(this));
 
     _this.getBlogs = function () {
-      _http2.default.get(_api.API_BLOGS).then(function (blogs) {
-        return _this.setState(function (state) {
-          return _extends({}, state, {
-            blogs: blogs,
-            filteredBlogs: blogs
-          });
+      var blogs = [{
+        author: 'Myself',
+        description: "Hey hey hey!"
+      }];
+      _this.setState(function (state) {
+        return _extends({}, state, {
+          blogs: blogs,
+          filteredBlogs: blogs
         });
-      }).catch(function (e) {
-        return console.error(e);
       });
+
+      // http.get(API_BLOGS)
+      //   .then(blogs => this.setState(state => ({
+      //     ...state,
+      //     blogs,
+      //     filteredBlogs: blogs,
+      //   })))
+      //   .catch(e => console.error(e));
     };
 
     _this.nextPage = function () {
@@ -322,10 +305,15 @@ var BlogList = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'input-group mb-3' },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'BlogList' },
+            'Filter by author name:'
+          ),
           _react2.default.createElement('input', {
             type: 'text',
             className: 'form-control',
-            placeholder: 'Author\'s username',
+            placeholder: 'Author\'s name',
             id: 'author-filter-param',
             ref: function ref(input) {
               _this2.filterInput = input;
@@ -395,7 +383,7 @@ exports.default = BlogList;
 
 /***/ }),
 
-/***/ 158:
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -405,7 +393,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(28);
+var _react = __webpack_require__(30);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -420,8 +408,7 @@ var BlogItem = function BlogItem(_ref) {
       deleteBlog = _ref.deleteBlog,
       getBlogs = _ref.getBlogs;
   var title = blog.title,
-      date = blog.date,
-      body = blog.body,
+      description = blog.description,
       author = blog.author,
       _id = blog._id;
 
@@ -435,17 +422,12 @@ var BlogItem = function BlogItem(_ref) {
         'h5',
         { className: 'mb-1' },
         title
-      ),
-      _react2.default.createElement(
-        'small',
-        null,
-        new Date(date).toLocaleString()
       )
     ),
     _react2.default.createElement(
       'p',
       { className: 'mb-1' },
-      body
+      description
     ),
     _react2.default.createElement(
       'small',
@@ -476,8 +458,7 @@ BlogItem.propTypes = {
   blog: _propTypes2.default.shape({
     title: _propTypes2.default.string,
     author: _propTypes2.default.string,
-    date: _propTypes2.default.string,
-    body: _propTypes2.default.string
+    description: _propTypes2.default.string
   }).isRequired,
   deleteBlog: _propTypes2.default.func.isRequired,
   getBlogs: _propTypes2.default.func.isRequired
@@ -487,7 +468,7 @@ exports.default = BlogItem;
 
 /***/ }),
 
-/***/ 159:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1038,7 +1019,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 /***/ }),
 
-/***/ 160:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1104,7 +1085,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 161:
+/***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1116,7 +1097,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(28);
+var _react = __webpack_require__(30);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1153,12 +1134,11 @@ var AddBlog = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AddBlog.__proto__ || Object.getPrototypeOf(AddBlog)).call.apply(_ref, [this].concat(args))), _this), _this.postBlog = function (blogFormData) {
-      blogFormData.append('date', new Date(Date.now()).toJSON());
-      var blogData = {};
+      var data = {};
       blogFormData.forEach(function (value, key) {
-        blogData[key] = value;
+        data[key] = value;
       });
-      _http2.default.post(_api.API_BLOGS, blogData).then(function () {
+      _http2.default.post(_api.API_BLOGS, data).then(function () {
         return _this.props.getBlogs();
       }).catch(function (e) {
         return console.error(e);
@@ -1194,16 +1174,16 @@ var AddBlog = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { className: 'input-group-text', id: '' },
-              'Add blog'
+              'Add record'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'title', placeholder: 'Title', className: 'form-control' }),
+            _react2.default.createElement('input', { type: 'text', name: 'author', placeholder: 'Author', className: 'form-control' }),
+            _react2.default.createElement('input', { type: 'text', name: 'description', placeholder: 'Description', className: 'form-control' }),
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-outline-secondary', type: 'submit' },
+              'Add record'
             )
-          ),
-          _react2.default.createElement('input', { type: 'text', name: 'title', placeholder: 'Title', className: 'form-control' }),
-          _react2.default.createElement('input', { type: 'text', name: 'author', placeholder: 'Author', className: 'form-control' }),
-          _react2.default.createElement('input', { type: 'text', name: 'body', placeholder: 'Message', className: 'form-control' }),
-          _react2.default.createElement(
-            'button',
-            { className: 'btn btn-outline-secondary', type: 'submit' },
-            'Add blog'
           )
         )
       );
@@ -1222,14 +1202,6 @@ AddBlog.propTypes = {
 
 /***/ }),
 
-/***/ 162:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"app":"app","footer":"footer"};
-
-/***/ }),
-
 /***/ 72:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1239,7 +1211,7 @@ module.exports = {"app":"app","footer":"footer"};
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var API_HOST = exports.API_HOST = 'http://localhost:7777';
+var API_HOST = exports.API_HOST = 'http://localhost:9999';
 var API_BLOGS = exports.API_BLOGS = '/blogs';
 
 /***/ })

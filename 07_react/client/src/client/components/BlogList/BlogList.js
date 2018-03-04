@@ -65,10 +65,11 @@ export default class BlogList extends React.Component {
       <div>
         <br />
         <div className="input-group mb-3">
+          <label htmlFor="BlogList">Filter by author name:</label>
           <input
             type="text"
             className="form-control"
-            placeholder="Author's username"
+            placeholder="Author's name"
             id="author-filter-param"
             ref={(input) => { this.filterInput = input; }}
             onInput={() => this.filterByAuthor(this.filterInput.value)}

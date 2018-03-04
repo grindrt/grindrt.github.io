@@ -622,32 +622,18 @@ function DeprecationError (namespace, message, stack) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-if (undefined === 'production') {
-  module.exports = __webpack_require__(131);
-} else {
-  module.exports = __webpack_require__(132);
-}
-
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("stream");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -956,6 +942,20 @@ function parseExtendedQueryString(str) {
 
 function newObject() {
   return {};
+}
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (undefined === 'production') {
+  module.exports = __webpack_require__(131);
+} else {
+  module.exports = __webpack_require__(132);
 }
 
 
@@ -3260,14 +3260,14 @@ var encodeUrl = __webpack_require__(20)
 var escapeHtml = __webpack_require__(21)
 var etag = __webpack_require__(55)
 var fresh = __webpack_require__(57)
-var fs = __webpack_require__(5)
+var fs = __webpack_require__(4)
 var mime = __webpack_require__(114)
 var ms = __webpack_require__(38)
 var onFinished = __webpack_require__(19)
 var parseRange = __webpack_require__(58)
 var path = __webpack_require__(2)
 var statuses = __webpack_require__(17)
-var Stream = __webpack_require__(6)
+var Stream = __webpack_require__(5)
 var util = __webpack_require__(27)
 
 /**
@@ -4465,7 +4465,7 @@ module.exports = ReactPropTypesSecret;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var API_HOST = exports.API_HOST = 'http://localhost:7777';
+var API_HOST = exports.API_HOST = 'http://localhost:9999';
 var API_BLOGS = exports.API_BLOGS = '/blogs';
 
 /***/ }),
@@ -7296,7 +7296,7 @@ module.exports = etag
  */
 
 var crypto = __webpack_require__(56)
-var Stats = __webpack_require__(5).Stats
+var Stats = __webpack_require__(4).Stats
 
 /**
  * Module variables.
@@ -8158,11 +8158,11 @@ if (undefined !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(144)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(143)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(145)();
+  module.exports = __webpack_require__(144)();
 }
 
 
@@ -8247,13 +8247,13 @@ var _express = __webpack_require__(65);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _server = __webpack_require__(133);
 
-var _fs = __webpack_require__(5);
+var _fs = __webpack_require__(4);
 
 var _fs2 = _interopRequireDefault(_fs);
 
@@ -9391,7 +9391,7 @@ function createWritableStdioStream (fd) {
       break;
 
     case 'FILE':
-      var fs = __webpack_require__(5);
+      var fs = __webpack_require__(4);
       stream = new fs.SyncWriteStream(fd, { autoClose: false });
       stream._type = 'fs';
       break;
@@ -12021,7 +12021,7 @@ module.exports = [["8740","䏰䰲䘃䖦䕸𧉧䵷䖳𧲱䳢𧳅㮕䜶䝄䱇䱀�
 
 
 var Buffer = __webpack_require__(1).Buffer,
-    Transform = __webpack_require__(6).Transform;
+    Transform = __webpack_require__(5).Transform;
 
 
 // == Exports ==================================================================
@@ -12318,7 +12318,7 @@ module.exports = function (iconv) {
 
         // -- Readable -------------------------------------------------------------
         if (iconv.supportsStreams) {
-            var Readable = __webpack_require__(6).Readable;
+            var Readable = __webpack_require__(5).Readable;
 
             original.ReadableSetEncoding = Readable.prototype.setEncoding;
             Readable.prototype.setEncoding = function setEncoding(enc, options) {
@@ -12352,7 +12352,7 @@ module.exports = function (iconv) {
         Buffer.prototype.write = original.BufferWrite;
 
         if (iconv.supportsStreams) {
-            var Readable = __webpack_require__(6).Readable;
+            var Readable = __webpack_require__(5).Readable;
 
             Readable.prototype.setEncoding = original.ReadableSetEncoding;
             delete Readable.prototype.collect;
@@ -13790,9 +13790,9 @@ var query = __webpack_require__(52);
 var debug = __webpack_require__(0)('express:application');
 var View = __webpack_require__(111);
 var http = __webpack_require__(23);
-var compileETag = __webpack_require__(7).compileETag;
-var compileQueryParser = __webpack_require__(7).compileQueryParser;
-var compileTrust = __webpack_require__(7).compileTrust;
+var compileETag = __webpack_require__(6).compileETag;
+var compileQueryParser = __webpack_require__(6).compileQueryParser;
+var compileTrust = __webpack_require__(6).compileTrust;
 var deprecate = __webpack_require__(3)('express');
 var flatten = __webpack_require__(22);
 var merge = __webpack_require__(24);
@@ -14941,7 +14941,7 @@ exports.init = function(app){
 
 var debug = __webpack_require__(0)('express:view');
 var path = __webpack_require__(2);
-var fs = __webpack_require__(5);
+var fs = __webpack_require__(4);
 
 /**
  * Module variables.
@@ -15138,8 +15138,8 @@ webpackEmptyContext.id = 112;
  * @private
  */
 
-var ReadStream = __webpack_require__(5).ReadStream
-var Stream = __webpack_require__(6)
+var ReadStream = __webpack_require__(4).ReadStream
+var Stream = __webpack_require__(5)
 
 /**
  * Module exports.
@@ -15207,7 +15207,7 @@ function onOpenClose() {
 /***/ (function(module, exports, __webpack_require__) {
 
 var path = __webpack_require__(2);
-var fs = __webpack_require__(5);
+var fs = __webpack_require__(4);
 
 function Mime() {
   // Map of extension -> mime type
@@ -17847,15 +17847,15 @@ var deprecate = __webpack_require__(3)('express');
 var encodeUrl = __webpack_require__(20);
 var escapeHtml = __webpack_require__(21);
 var http = __webpack_require__(23);
-var isAbsolute = __webpack_require__(7).isAbsolute;
+var isAbsolute = __webpack_require__(6).isAbsolute;
 var onFinished = __webpack_require__(19);
 var path = __webpack_require__(2);
 var statuses = __webpack_require__(17)
 var merge = __webpack_require__(24);
 var sign = __webpack_require__(127).sign;
-var normalizeType = __webpack_require__(7).normalizeType;
-var normalizeTypes = __webpack_require__(7).normalizeTypes;
-var setCharset = __webpack_require__(7).setCharset;
+var normalizeType = __webpack_require__(6).normalizeType;
+var normalizeTypes = __webpack_require__(6).normalizeTypes;
+var setCharset = __webpack_require__(6).setCharset;
 var cookie = __webpack_require__(128);
 var send = __webpack_require__(31);
 var extname = path.extname;
@@ -21027,7 +21027,7 @@ if (undefined === 'production') {
  * LICENSE file in the root directory of this source tree.
  */
 
-var k=__webpack_require__(13),r=__webpack_require__(4),aa=__webpack_require__(8),t=__webpack_require__(25),ba=__webpack_require__(60),ca=__webpack_require__(61),da=__webpack_require__(6);
+var k=__webpack_require__(13),r=__webpack_require__(7),aa=__webpack_require__(8),t=__webpack_require__(25),ba=__webpack_require__(60),ca=__webpack_require__(61),da=__webpack_require__(5);
 function w(a){for(var b=arguments.length-1,g="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)g+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(g+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var x={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function z(a,b){return(a&b)===b}
 var B={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=B,g=a.Properties||{},c=a.DOMAttributeNamespaces||{},h=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in g){C.hasOwnProperty(f)?w("48",f):void 0;var e=f.toLowerCase(),d=g[f];e={attributeName:e,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:z(d,b.MUST_USE_PROPERTY),
@@ -21124,7 +21124,7 @@ if (undefined !== "production") {
 
 var invariant = __webpack_require__(14);
 var _assign = __webpack_require__(13);
-var React = __webpack_require__(4);
+var React = __webpack_require__(7);
 var emptyFunction = __webpack_require__(8);
 var emptyObject = __webpack_require__(25);
 var hyphenateStyleName = __webpack_require__(60);
@@ -21132,7 +21132,7 @@ var memoizeStringOnly = __webpack_require__(61);
 var warning = __webpack_require__(26);
 var checkPropTypes = __webpack_require__(32);
 var camelizeStyleName = __webpack_require__(138);
-var stream = __webpack_require__(6);
+var stream = __webpack_require__(5);
 
 /**
  * WARNING: DO NOT manually require this module.
@@ -23786,63 +23786,39 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Main = __webpack_require__(141);
+var _BlogList = __webpack_require__(141);
 
-var _Main2 = _interopRequireDefault(_Main);
-
-var _main = __webpack_require__(147);
-
-var _main2 = _interopRequireDefault(_main);
+var _BlogList2 = _interopRequireDefault(_BlogList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react2.default.createElement(
     'div',
-    { className: _main2.default.app },
-    _react2.default.createElement(_Main2.default, null)
-  );
-};
-
-exports.default = App;
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BlogList = __webpack_require__(142);
-
-var _BlogList2 = _interopRequireDefault(_BlogList);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Main = function Main() {
-  return _react2.default.createElement(
-    'main',
     null,
     _react2.default.createElement(_BlogList2.default, null)
   );
 };
 
-exports.default = Main;
+exports.default = App;
+
+// import React from 'react';
+// import BlogList from '../BlogList/BlogList';
+
+// const Main = () => (
+//   <main>
+//     <BlogList />
+//   </main>
+// );
+
+// export default Main;
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23856,15 +23832,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BlogItem = __webpack_require__(143);
+var _BlogItem = __webpack_require__(142);
 
 var _BlogItem2 = _interopRequireDefault(_BlogItem);
 
-var _AddBlog = __webpack_require__(146);
+var _AddBlog = __webpack_require__(145);
 
 var _AddBlog2 = _interopRequireDefault(_AddBlog);
 
@@ -23891,16 +23867,24 @@ var BlogList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (BlogList.__proto__ || Object.getPrototypeOf(BlogList)).call(this));
 
     _this.getBlogs = function () {
-      _http2.default.get(_api.API_BLOGS).then(function (blogs) {
-        return _this.setState(function (state) {
-          return _extends({}, state, {
-            blogs: blogs,
-            filteredBlogs: blogs
-          });
+      var blogs = [{
+        author: 'Myself',
+        description: "Hey hey hey!"
+      }];
+      _this.setState(function (state) {
+        return _extends({}, state, {
+          blogs: blogs,
+          filteredBlogs: blogs
         });
-      }).catch(function (e) {
-        return console.error(e);
       });
+
+      // http.get(API_BLOGS)
+      //   .then(blogs => this.setState(state => ({
+      //     ...state,
+      //     blogs,
+      //     filteredBlogs: blogs,
+      //   })))
+      //   .catch(e => console.error(e));
     };
 
     _this.nextPage = function () {
@@ -23967,10 +23951,15 @@ var BlogList = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'input-group mb-3' },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'BlogList' },
+            'Filter by author name:'
+          ),
           _react2.default.createElement('input', {
             type: 'text',
             className: 'form-control',
-            placeholder: 'Author\'s username',
+            placeholder: 'Author\'s name',
             id: 'author-filter-param',
             ref: function ref(input) {
               _this2.filterInput = input;
@@ -24039,7 +24028,7 @@ var BlogList = function (_React$Component) {
 exports.default = BlogList;
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24049,7 +24038,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -24064,8 +24053,7 @@ var BlogItem = function BlogItem(_ref) {
       deleteBlog = _ref.deleteBlog,
       getBlogs = _ref.getBlogs;
   var title = blog.title,
-      date = blog.date,
-      body = blog.body,
+      description = blog.description,
       author = blog.author,
       _id = blog._id;
 
@@ -24079,17 +24067,12 @@ var BlogItem = function BlogItem(_ref) {
         'h5',
         { className: 'mb-1' },
         title
-      ),
-      _react2.default.createElement(
-        'small',
-        null,
-        new Date(date).toLocaleString()
       )
     ),
     _react2.default.createElement(
       'p',
       { className: 'mb-1' },
-      body
+      description
     ),
     _react2.default.createElement(
       'small',
@@ -24120,8 +24103,7 @@ BlogItem.propTypes = {
   blog: _propTypes2.default.shape({
     title: _propTypes2.default.string,
     author: _propTypes2.default.string,
-    date: _propTypes2.default.string,
-    body: _propTypes2.default.string
+    description: _propTypes2.default.string
   }).isRequired,
   deleteBlog: _propTypes2.default.func.isRequired,
   getBlogs: _propTypes2.default.func.isRequired
@@ -24130,7 +24112,7 @@ BlogItem.propTypes = {
 exports.default = BlogItem;
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24679,7 +24661,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24744,7 +24726,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24756,7 +24738,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -24793,12 +24775,11 @@ var AddBlog = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AddBlog.__proto__ || Object.getPrototypeOf(AddBlog)).call.apply(_ref, [this].concat(args))), _this), _this.postBlog = function (blogFormData) {
-      blogFormData.append('date', new Date(Date.now()).toJSON());
-      var blogData = {};
+      var data = {};
       blogFormData.forEach(function (value, key) {
-        blogData[key] = value;
+        data[key] = value;
       });
-      _http2.default.post(_api.API_BLOGS, blogData).then(function () {
+      _http2.default.post(_api.API_BLOGS, data).then(function () {
         return _this.props.getBlogs();
       }).catch(function (e) {
         return console.error(e);
@@ -24834,16 +24815,16 @@ var AddBlog = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { className: 'input-group-text', id: '' },
-              'Add blog'
+              'Add record'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'title', placeholder: 'Title', className: 'form-control' }),
+            _react2.default.createElement('input', { type: 'text', name: 'author', placeholder: 'Author', className: 'form-control' }),
+            _react2.default.createElement('input', { type: 'text', name: 'description', placeholder: 'Description', className: 'form-control' }),
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-outline-secondary', type: 'submit' },
+              'Add record'
             )
-          ),
-          _react2.default.createElement('input', { type: 'text', name: 'title', placeholder: 'Title', className: 'form-control' }),
-          _react2.default.createElement('input', { type: 'text', name: 'author', placeholder: 'Author', className: 'form-control' }),
-          _react2.default.createElement('input', { type: 'text', name: 'body', placeholder: 'Message', className: 'form-control' }),
-          _react2.default.createElement(
-            'button',
-            { className: 'btn btn-outline-secondary', type: 'submit' },
-            'Add blog'
           )
         )
       );
@@ -24858,15 +24839,6 @@ exports.default = AddBlog;
 
 AddBlog.propTypes = {
   getBlogs: _propTypes2.default.func.isRequired
-};
-
-/***/ }),
-/* 147 */
-/***/ (function(module, exports) {
-
-module.exports = {
-	"app": "app",
-	"footer": "footer"
 };
 
 /***/ })

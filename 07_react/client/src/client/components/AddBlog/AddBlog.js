@@ -6,10 +6,9 @@ import { API_BLOGS } from '../../api';
 
 export default class AddBlog extends React.Component {
   postBlog = (blogFormData) => {
-    blogFormData.append('date', new Date(Date.now()).toJSON());
-    const blogData = {};
-    blogFormData.forEach((value, key) => { blogData[key] = value; });
-    http.post(API_BLOGS, blogData)
+    const data = {};
+    blogFormData.forEach((value, key) => { data[key] = value; });
+    http.post(API_BLOGS, data)
       .then(() => this.props.getBlogs())
       .catch(e => console.error(e));
   };
@@ -28,12 +27,14 @@ export default class AddBlog extends React.Component {
       >
         <div className="input-group">
           <div className="input-group-prepend">
-            <span className="input-group-text" id="">Add blog</span>
+            <span className="input-group-text" id="">Add record</span>
+            <input type="text" name="title" placeholder="Title" className="form-control" />
+            <input type="text" name="author" placeholder="Author" className="form-control" />
+            <span>
+              <input type="text" name="description" placeholder="Description" className="form-control" />
+            </span>
+            <button className="btn btn-outline-secondary" type="submit">Add record</button>
           </div>
-          <input type="text" name="title" placeholder="Title" className="form-control" />
-          <input type="text" name="author" placeholder="Author" className="form-control" />
-          <input type="text" name="body" placeholder="Message" className="form-control" />
-          <button className="btn btn-outline-secondary" type="submit">Add blog</button>
         </div>
       </form>
     );
