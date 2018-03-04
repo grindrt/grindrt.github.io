@@ -1,32 +1,49 @@
 {
-  "name": "fc-react-task",
+  "name": "07_react",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "scripts": {
-    "build-prod": "webpack --config ./config/webpack.prod.config.js",
-    "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host 0.0.0.0",
-    "dev": "webpack -d --watch",
-    "start": "npm run build-prod && babel-node ./src/server",
-    "build": "webpack -p"
-  },
-  "repository": {
-    "type": "git",
-    "url": "github.com/grindrt/grindrt.github.io"
-  },
-  "author": "Andrei Kasak",
+  "main": "index.js",
+  "author": "Andrei Kasak <grindrt@gmail.com>",
   "license": "ISC",
-  "dependencies": {
-    "babel-loader": "^7.1.3",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "prop-types": "^15.6.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+  "scripts": {
+    "start": "node public/server.js",
+    "server:dev": "webpack --env dev && node public/server.js",
+    "server:prod": "webpack --env prod && node public/server.js"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "babel-polyfill": "6.26.0",
+    "directory-named-webpack-plugin": "^2.3.0",
+    "express": "4.16.2",
+    "isomorphic-fetch": "2.2.1",
+    "prop-types": "15.6.0",
+    "react": "16.2.0",
+    "react-dom": "16.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "7.2.5",
+    "babel-core": "6.26.0",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.1.2",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "clean-webpack-plugin": "0.1.17",
+    "css-loader": "0.28.9",
+    "eslint": "4.16.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-import-resolver-webpack": "0.8.4",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.6.0",
+    "extract-text-webpack-plugin": "3.0.2",
+    "file-loader": "1.1.6",
+    "node-sass": "4.7.2",
+    "postcss-loader": "2.0.10",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.19.1",
+    "url-loader": "0.6.2",
+    "webpack": "3.10.0",
+    "webpack-manifest-plugin": "1.3.2"
+  }
 }

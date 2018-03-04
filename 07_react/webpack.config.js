@@ -1,89 +1,157 @@
-let webpack = require('webpack');
-let path = require('path');
+const CleanPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
-const APP_DIR = path.resolve(__dirname, 'src/client/app');
-const BUILD_DIR = path.resolve(__dirname, 'src/public');
+const isDev = process.env.NODE_ENV === 'dev';
 
-let config = {
-  // devtool: 'eval',
-  entry: {
-    client: [
-     // 'babel-polyfill',
-     APP_DIR + '/index.js',
-    ]
-  },
-  output: {
-    path: BUILD_DIR,
-    filename: 'bundle.js',
-    publicPath: '/public/'
-  },
-  // devtool: 'inline-source-map',
-  module: {
-    rules: [
-      {
-        test: /(\.js|\.jsx)$/,
-        loader: 'babel-loader',
-        exclude: [/node_modules/, /public/]
-      },
-      // {
-      //   test: /(\.css|\.scss)$/,
-      //   use: [
-      //     'style-loader',
-      //     'css-loader',
-      //     'sass-loader',
-      //   ]
-      // }
-    ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.COSMIC_BUCKET': JSON.stringify(process.env.COSMIC_BUCKET),
-      'process.env.COSMIC_READ_KEY': JSON.stringify(process.env.COSMIC_READ_KEY),
-      'process.env.COSMIC_WRITE_KEY': JSON.stringify(process.env.COSMIC_WRITE_KEY)
-    })
- ]
+const clientConfig = {
+    devtool: isDev ? 'inline-source-map' : 'hidden-source-map',
+    entry: {
+    main: './src/client/index.js',
+        vendor: [
+            'react',
+            'react-dom',
+            'babel-polyfill',
+            'isomorphic-fetch/fetch-npm-browserify',
+        ],
+    },
+
+    output: {
+        path: path.resolve(__dirname, 'public'),
+        filename: isDev ? '[name].js' : '[name]-[chunkhash].js',
+    },
+
+    resolve: {
+        modules: [
+            path.join(__dirname, 'node_modules'),
+            path.join(__dirname, 'src'),
+        ],
+        extensions: [
+            '.js',
+            '.jsx',
+        ],
+    },
+
+    module: {
+        rules: [
+        {
+            test: /\.js?$|\.jsx?$/,
+            use: 'babel-loader',
+            exclude: /node_modules/,
+        },
+
+        {
+            test: /\.scss$/,
+            exclude: /node_modules/,
+            use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+                {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                        importLoaders: 2,
+                        localIdentName: '[local]',
+                    },
+                },
+                {
+                    loader: 'postcss-loader',
+                },
+                {
+                    loader: 'sass-loader',
+                },
+            ],
+            }),
+        },
+        {
+            test: /\.(ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'file?name=[name].[ext]',
+        },
+        ],
+    },
+
+    plugins: [
+        new CleanPlugin(['public']),
+        new ExtractTextPlugin({
+            filename: 'style.css',
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity,
+        }),
+        new ManifestPlugin(),
+        new DirectoryNamedWebpackPlugin()
+    ],
 };
 
-module.exports = config;
+const serverConfig = {
+    entry: './src/server',
 
-// module.exports = {
-//   devtool: 'eval',
-//   entry: {
-//     client: [
-//      'babel-polyfill',
-//      './src/client/index.js',
-//     ]
-//   },
-//   output: {
-//     path: __dirname + '/dist',
-//     filename: 'bundle.js',
-//     publicPath: '/dist/'
-//   },
-//   devtool: 'inline-source-map',
-//   module: {
-//     loaders: [
-//       {
-//         test: /(\.js|\.jsx)$/,
-//         loader: process.env.NODE_ENV !== 'production'
-//           ? 'react-hot-loader/webpack!babel-loader'
-//           : 'babel-loader',
-//         exclude: [/node_modules/, /public/]
-//       },
-//       {
-//         test: /(\.css|\.scss)$/,
-//         use: [
-//           'style-loader',
-//           'css-loader',
-//           'sass-loader',
-//         ]
-//       }
-//     ]
-//   },
-//   plugins: [
-//     new webpack.DefinePlugin({
-//       'process.env.COSMIC_BUCKET': JSON.stringify(process.env.COSMIC_BUCKET),
-//       'process.env.COSMIC_READ_KEY': JSON.stringify(process.env.COSMIC_READ_KEY),
-//       'process.env.COSMIC_WRITE_KEY': JSON.stringify(process.env.COSMIC_WRITE_KEY)
-//     })
-//  ]
-// };
+    output: {
+        path: path.join(__dirname, 'public'),
+        filename: 'server.js',
+        publicPath: '/',
+        libraryTarget: 'commonjs2',
+    },
+  
+    target: 'node',
+        node: {
+            __dirname: true,
+        },
+  
+    resolve: {
+        modules: [
+            path.join(__dirname, 'node_modules'),
+            path.join(__dirname, 'src'),
+        ],
+            extensions: [
+            '.js',
+            '.jsx'
+        ],
+    },
+  
+    module: {
+        rules: [
+            {
+            test: /\.js?$|\.jsx?$/,
+            use: 'babel-loader',
+            exclude: /node_modules/,
+            },    
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'css-loader/locals',
+                        options: {
+                            modules: true,
+                            importLoaders: 1,
+                            localIdentName: '[local]',
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                    },
+                ],
+                    exclude: /node_modules/,
+                },
+                {
+                    test: /\.(ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loader: 'file?name=[name].[ext]',
+                    exclude: /node_modules/,
+            },
+        ]
+    },
+
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            'window': JSON.stringify(false),
+        }),
+        new DirectoryNamedWebpackPlugin()
+    ],
+};
+
+module.exports = [clientConfig, serverConfig];
