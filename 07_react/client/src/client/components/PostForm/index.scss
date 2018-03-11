@@ -1,0 +1,25 @@
+@import '../../stylesheet/variables';
+
+.post-form {
+  margin: 20px 0;
+
+  &__text {
+    color: $font-color;
+    background: transparent;
+    border: none;
+    transition: all .3s;
+
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid $font-color;
+
+      &::placeholder {
+        color: $font-color;
+      }
+    }
+
+    &::placeholder {
+      color: transparentize($font-color, 0.2);
+    }
+  }
+}

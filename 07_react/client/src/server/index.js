@@ -1,37 +1,26 @@
-import express from 'express';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import fs from 'fs';
-import App from '../client/components/App/App';
-import path from 'path';
+const path = require('path');
+const express = require('express');
+const handleRender = require('./handleRender.js');
+const webpack = require('webpack');
+const cookieParser = require('cookie-parser');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackClientConfig = require('../../config/webpack.prod');
+const compression = require('compression');
 
 const port = 7777;
 const app = express();
 
-const manifest = JSON.parse(fs.readFileSync(path.resolve('./public/manifest.json'), 'utf8'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-app.use(express.static('oublic'));
+app.use(cookieParser());
 
-app.get('*', (req, res) => {
-  res.setHeader('Content-type', 'text/html');
-  const renderedHTML = `
-    <!DOCTYPE html>
-      <head>
-        <meta charset="utf-8" />
-        <title>FrontCamp3</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous" />
-        <link rel="stylesheet" href="/style.css" />
-      </head>
-    <body>
-    <div id="app">${renderToString(<App />)}</div>
-    </body>
-    <script src="./${manifest['vendor.js']}"></script>
-    <script src="./${manifest['main.js']}"></script>
-    </html>`
-  ;
-  res.send(renderedHTML);
+Object.assign(webpackClientConfig.output, { path: '/' });
+app.use(webpackDevMiddleware(webpack(webpackClientConfig), {}));
+
+app.use(express.static('public'));
+app.get('*', handleRender);
+
+app.listen(port, () => {
+  console.info(`Express listening on port ${port}`);
 });
-
-app.listen(port, () => console.log('Listening on port ' + port));

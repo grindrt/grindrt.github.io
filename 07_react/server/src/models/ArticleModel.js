@@ -1,4 +1,5 @@
 const mongoose = require('../config/mongoose.js');
+const Schema = mongoose.Schema;
 
 const ArticleSchema = new mongoose.Schema({
 
@@ -6,12 +7,16 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description:{
+  text: {
     type: String
   },
-  author:{
-    type: String,
-    required: true
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

@@ -1,0 +1,5 @@
+{
+    "API_HOST": "http://localhost:9999",
+    "API_BLOGS": "/blogs",
+    "API_USER": "/user"
+}
