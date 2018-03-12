@@ -11,9 +11,9 @@
     "start": "babel-node ./lib/server",
     "start:server": "node ./src/server",
     "build": "npm run build:server && npm run build:client",
-    "build:server": "rm -rf lib/ && babel -d lib src && node ./config/pug-loader.js",
+    "build:server": "babel -d lib src && node ./config/pug-loader.js",
     "build:client": "webpack --config config/webpack.prod.js",
-    "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js  --recursive",
+    "test": "mocha --compilers js:babel-core/register ",
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {

@@ -8,8 +8,8 @@ const cookieParser = require('cookie-parser');
 
 const rootSaga = require('../client/store/rootSaga').default;
 const createStore = require('../client/store/createStore').default;
-const App = require('../client/App.js').default;
-const decodeJwtToken = require('../client/utils/').decodeJwtToken;
+const App = require('../client/components/App/App').default;
+const decodeJwtToken = require('../client/utils/TokenHelper').decodeJwtToken;
 
 const renderFullPage = (html, preloadedState) => {
     return pug.renderFile(path.resolve(__dirname, 'views/index.pug'), { html, preloadedState })
