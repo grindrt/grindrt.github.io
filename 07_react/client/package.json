@@ -6,13 +6,15 @@
   "author": "Andrei Kasak <grindrt@gmail.com>",
   "license": "ISC",
   "scripts": {
-    "dev": "BABEL_DISABLE_CACHE=1 nodemon --watch src/server -- ./src/server",
+    "dev": "nodemon --watch src/server -- ./src/server",
     "dev:client": "webpack-dev-server -d --config ./config/webpack.dev.js",
-    "start": "BABEL_DISABLE_CACHE=1 babel-node ./lib/server",
-    "serve": "babel-node ./src/server",
-    "build": "yarn build:server && yarn build:client",
-    "build:server": "rm -rf lib/ && BABEL_DISABLE_CACHE=1 babel -d lib src && node ./config/pug-loader.js",
-    "build:client": "BABEL_DISABLE_CACHE=1 webpack --config config/webpack.prod.js"
+    "start": "babel-node ./lib/server",
+    "start:server": "node ./src/server",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "rm -rf lib/ && babel -d lib src && node ./config/pug-loader.js",
+    "build:client": "webpack --config config/webpack.prod.js",
+    "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js  --recursive",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "babel-polyfill": "6.26.0",
@@ -50,6 +52,8 @@
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-immutable": "^1.6.0",
     "clean-webpack-plugin": "0.1.17",
     "css-loader": "0.28.9",
     "eslint": "4.16.0",
@@ -61,6 +65,7 @@
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.6",
     "html-webpack-plugin": "^2.30.1",
+    "mocha": "^5.0.4",
     "ncp": "^2.0.0",
     "node-sass": "4.7.2",
     "nodemon": "^1.17.1",
