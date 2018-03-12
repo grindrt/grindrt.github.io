@@ -1,4 +1,0 @@
-{
-  "secretKey": "Hithere!",
-  "dbUrl": "mongodb://localhost/blogs"
-}
