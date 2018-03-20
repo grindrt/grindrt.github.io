@@ -11,7 +11,7 @@
     "start": "babel-node ./lib/server",
     "start:server": "node ./src/server",
     "build": "npm run build:server && npm run build:client",
-    "build:server": "babel -d lib src && node ./config/pug-loader.js",
+    "build:server": "node ./config/pug-loader.js",
     "build:client": "webpack --config config/webpack.prod.js",
     "test": "mocha --compilers js:babel-core/register ",
     "test:watch": "npm run test -- --watch"
@@ -49,7 +49,7 @@
     "babel-plugin-webpack-loaders": "^0.9.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "1.6.1",
-    "babel-preset-react": "6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^4.1.2",

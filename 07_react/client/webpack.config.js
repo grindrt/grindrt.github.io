@@ -41,6 +41,10 @@ const clientConfig = {
             test: /\.js?$|\.jsx?$/,
             use: 'babel-loader',
             exclude: /node_modules/,
+            query:
+            {
+                presets:['react']
+            }
         },
 
         {
@@ -116,9 +120,13 @@ const serverConfig = {
     module: {
         rules: [
             {
-            test: /\.js?$|\.jsx?$/,
-            use: 'babel-loader',
-            exclude: /node_modules/,
+                test: /\.js?$|\.jsx?$/,
+                use: 'babel-loader',
+                exclude: /node_modules/,
+                query:
+                {
+                    presets:['react']
+                }
             },    
             {
                 test: /\.scss$/,
