@@ -1,68 +1,100 @@
-  // import 'bootstrap/dist/css/bootstrap.css';
+let app = angular.module('toDoApp', ['ngResource', 'ui.router']);
 
- // import angular from 'angular';
- // import uirouter from 'angular-ui-router';
-
- // import './routing/homeRouting';
- // import './routing/toDoRouting';
-
- // import './controllers/homeController';
- // import './controllers/addController';
- // import './controllers/editController';
-
-// angular.module('toDo', ['uirouter', 'ngResource'])
-// 	.config(homeRouting)
-// 	.config(toDoRouting)
-// 	.controller(homeController, 'homeController')
-// 	.controller(addController, 'addController')
-// 	.controller(editController, 'editController');
-
-
-let app = angular.module('toDoApp', ['ngResource']);
-
-app.factory("todoFactory", function(){
+app.factory("todoFactory", function () {
     var taskList = ["New Delhi", "Mumbai", "Kolkata", "Chennai"];
     return {
         getTasks: function getTasks() {
-             return taskList;
+            return taskList;
         },
-        addTask: function addTask(text){
+        addTask: function addTask(text) {
             taskList.push(text);
         },
-        removeTask: function removeTask(text){
+        removeTask: function removeTask(text) {
             taskList.splice(taskList.indexOf(text), 1)
-    	}
+        }
     };
 });
 
+app.factory('customValidationRule',() => ({
+    validateField(input, isSubmitted) { 
+        return (input.$dirty && input.$touched) || isSubmitted;
+    }
+}));
+
 app.factory('dbService', ['$resource', function ($resource) {
+    var data = $resource('http://localhost:8888/todoList', {}, {
+        'getToDoList': {
+            method: 'GET',
+            isArray: true
+        }
+    });
+    return data;
+}]);
 
-		console.log('dbService');
-		console.log($resource);
+app.controller('toDoController', ['$scope', 'dbService', function ($scope, dbService) {
+    dbService.getToDoList().$promise.then(function (tasks) {
+        $scope.tasks = tasks;
+        $scope.doneTasks = tasks.filter(function (x) { return x.isDone; });
+        $scope.activeTasks = tasks.filter(function (x) { return !x.isDone; });
 
-		var data = $resource('http://localhost:8888/todoList', {}, {
-            'getToDoList':{
-                method: 'GET',
-                isArray: true
-            }
-        });
+        $scope.time = tasks[0].dateCreation
+    });
 
-		console.log(data());
+    $scope.orderByDay = function (date) {
+        const dif = Date.now() - new Date(date.value);
+        const days = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-        return data; 
-    }]);
+        return days > 0;
+    }
+}]);
 
-
-app.controller('toDoController', ['$scope', 'todoFactory', 'dbService', function ($scope, todoFactory, dbService) {
-    $scope.tasks = dbService.getToDoList(); 
-    $scope.newTaskName = '';
-
-    $scope.addTask = function () {
-        todoFactory.addTask($scope.newTaskName)
-        $scope.newTaskName = '';
+app.controller('addController', ['$scope', '$state', 'dbService', function ($scope, $state, dbService) {
+    $scope.newItem = {
+        "id": "",
+        "text": "",
+        "isDone": false,
+        "dateCreation": ""
     };
 
-    $scope.removeTask = function (text) {
-        todoFactory.removeTask(text);
+    $scope.addItem = (todoItem) => {
+        // dbService.addItem(todoItem);
+        todoItem.dateCreation = Date.now();
+        $scope.activeTasks.push(todoItem);
+        $state.go('home');
     }
+}]);
+
+app.controller('editController', ['$scope', '$state', 'dbService', 'todo', function ($scope, $state, dbService, todo) {
+    $scope.itemCopy = Object.assign({}, todo);
+
+    $scope.editItem = (todoItem) => {
+        // dbService.addItem(todoItem);
+
+        var item = $scope.activeTasks.filter(function (x) { return x.id === todoItem.id });
+
+        $state.go('home');
+    }
+}]);
+
+app.config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state('add', {
+        url: '/add',
+        controller: 'addController',
+        templateUrl: 'src/app/templates/add.html'
+    });
+    $stateProvider.state('edit', {
+        url: '/edit',
+        controller: 'editController',
+        templateUrl: 'src/app/templates/edit.html',
+        resolve: {
+            todo: ($stateParams, todoListService) => (
+                todoListService.getToDoList().then((todoList) => (
+                    todoList.find(({ _id }) => _id === $stateParams.id)
+                ))
+            )
+        },
+        onEnter($state, todo) {
+            if (!todo) $state.go('home');
+        }
+    });
 }]);

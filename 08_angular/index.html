@@ -1,33 +1,68 @@
 <!doctype html>
-
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.js"></script>
-  <script src="https://code.angularjs.org/1.2.16/angular-resource.js"></script>
+    <script src="https://code.angularjs.org/1.2.16/angular-resource.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 </head>
 
-<body >
-	<div ng-app="toDoApp">
-		<div ng-controller="toDoController">
+<body>
+    <div ng-app="toDoApp">
 
-            <h3>Active ({{ tasks.length }})</h3>
-            <span ng-if="tasks.length === 0">You have no active tasks!</span>
-            <ul ng-repeat="task in tasks">
-                <li>
-                    <input type="checkbox" ng-click="removeTask(task)" /> {{ task }}
-                </li>
-            </ul>
+        <h2>Add a Task</h2>
+        <a class="btn btn_link" ui-sref="add">
+            <span>Add todo</span>
+        </a>
 
-            <h2>Add a Task</h2>
-            <form>
-                <input type="text" placeholder="Description" ng-model="newTaskName" />
-                <input type="button" value="Add" ng-click="addTask()" />
-            </form>
+        <div ng-controller="toDoController">
+            <div>
+                <h3>New ({{ activeTasks.length }}) items</h3>
+                <span ng-if="tasks.length === 0">You have no active tasks!</span>
+                <ul ng-repeat="task in activeTasks | orderBy:'dateCreation':false:orderByDay">
+                    <li>
+                        <div>
+                            <p>{{task.text}}</p>
+                            <div>
+                                <span>Creation date: {{task.dateCreation}}</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div>
+                                <input type="checkbox" id="todo-done-{{task.id}}" ng-model="task.isDone" />
+                            </div>
+                            <div class="todo-toolbox__container">
+                                <a ui-sref="edit({ id: task.id })" class="btn btn_link">
+                                    <span>Edit todo</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>>
+
+            <div>
+                <h3>Done ({{ doneTasks.length }})</h3>
+                <span ng-if="tasks.length === 0">You have no active tasks!</span>
+                <ul ng-repeat="task in doneTasks">
+                    <li>
+                        <input type="checkbox" ng-checked="task.isDone" ng-click="removeTask(task)" disabled/> {{ task.text }}
+                        <label> {{ task.dateCreation }}</label>
+                    </li>
+                </ul>
+            </div>
 
         </div>
-	</div>
+    </div>
 
-  <script src="./src/app/app.js"></script>
+    <script src="./src/app/app.js"></script>
 </body>
+
 </html>
