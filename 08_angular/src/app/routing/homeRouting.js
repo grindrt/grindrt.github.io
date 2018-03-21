@@ -1,7 +1,9 @@
-import angular from 'angular';
+homeRouting.$inject = ['$stateProvider', '$urlRouteProvider'];
 
-angular.module('todo')
-    .config(['$stateProvider', ($stateProvider) => {
+// angular.module('todo')
+    // .config(['$stateProvider', ($stateProvider) => {
+
+let homeRouting = ($stateProvider, $urlRouteProvider) => {
         $stateProvider.state('home', {
             url: '/home',
             controller: 'homeController',
@@ -9,5 +11,9 @@ angular.module('todo')
             resolve: {
                 todoList: (todoListService) => todoListService.getToDoList()
             }
-        })
-    }]);
+        });
+
+        $urlRouteProvider.otherwise('/')
+    };
+
+export default homeRouting;

@@ -1,9 +1,12 @@
-import angular from 'angular';
+// import angular from 'angular';
 
-angular.module('todo')
-    .config(['$stateProvider', ($stateProvider) => {
+toDoRouting.$inject = ['$stateProvider', '$urlRouteProvider'];
+
+// angular.module('todo')
+//     .config(['$stateProvider', ($stateProvider) => {
+let toDoRouting = ($stateProvider, $urlRouteProvider) => {
         $stateProvider.state('add', {
-            url: '/aadd',
+            url: '/add',
             controller: 'addController',
             templateUrl: './templates/add.html'
         });
@@ -22,4 +25,6 @@ angular.module('todo')
                 if (!todo) $state.go('home');
             }
         });
-    }]);
+    };
+
+export default toDoRouting;

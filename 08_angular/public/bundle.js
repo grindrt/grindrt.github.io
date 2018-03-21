@@ -17740,22 +17740,34 @@ module.exports = function (regExp, replace) {
 
 /***/ }),
 /* 386 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router__ = __webpack_require__(388);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_ui_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routing_homeRouting__ = __webpack_require__(417);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routing_toDoRouting__ = __webpack_require__(418);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controllers_homeController__ = __webpack_require__(419);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_addController__ = __webpack_require__(420);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_addController___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__controllers_addController__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_editController__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_editController___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__controllers_editController__);
+// import 'bootstrap/dist/css/bootstrap.css';
 
 
-var _angular = __webpack_require__(112);
 
-var _angular2 = _interopRequireDefault(_angular);
 
-var _angularUiRouter = __webpack_require__(388);
 
-var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_angular2.default.module('toDo', ['ui.router', 'ngResource']);
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('toDo', ['uirouter', 'ngResource']).config(homeRouting).config(toDoRouting).controller(homeController, 'homeController').controller(addController, 'addController').controller(editController, 'editController');
 
 /***/ }),
 /* 387 */
@@ -54387,6 +54399,126 @@ function $ViewScrollProvider() {
 }
 angular_1.ng.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider);
 //# sourceMappingURL=viewScroll.js.map
+
+/***/ }),
+/* 417 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+homeRouting.$inject = ['$stateProvider', '$urlRouteProvider'];
+
+// angular.module('todo')
+// .config(['$stateProvider', ($stateProvider) => {
+
+let homeRouting = ($stateProvider, $urlRouteProvider) => {
+    $stateProvider.state('home', {
+        url: '/home',
+        controller: 'homeController',
+        templateUrl: '../templates/home.html',
+        resolve: {
+            todoList: todoListService => todoListService.getToDoList()
+        }
+    });
+
+    $urlRouteProvider.otherwise('/');
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (homeRouting);
+
+/***/ }),
+/* 418 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// import angular from 'angular';
+
+toDoRouting.$inject = ['$stateProvider', '$urlRouteProvider'];
+
+// angular.module('todo')
+//     .config(['$stateProvider', ($stateProvider) => {
+let toDoRouting = ($stateProvider, $urlRouteProvider) => {
+    $stateProvider.state('add', {
+        url: '/add',
+        controller: 'addController',
+        templateUrl: './templates/add.html'
+    });
+    $stateProvider.state('edit', {
+        url: '/edit',
+        controller: 'editController',
+        templateUrl: '../templates/edit.html',
+        resolve: {
+            todo: ($stateParams, todoListService) => todoListService.getToDoList().then(todoList => todoList.find(({ _id }) => _id === $stateParams.id))
+        },
+        onEnter($state, todo) {
+            if (!todo) $state.go('home');
+        }
+    });
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (toDoRouting);
+
+/***/ }),
+/* 419 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// import angular from 'angular';
+
+homeController.$inject = ['$scope', 'todoList'];
+
+// angular.module('toDo')
+//     .controller('homeController', ['$scope', 'todoList', ($scope, todoList)=>{
+
+let homeController = ($scope, todoList) => {
+  $scope.todoList = todoList;
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (homeController);
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports) {
+
+// import angular from 'angular';
+
+addController.$inject = ['$scope', '$state', 'todoListService'];
+
+// angular.module('todo')
+//     .controller('addController', ['$scope', '$state', 'todoListService', ($scope, $state, todoListService) => {
+
+let addController = ($scope, $state, todoListService) => {
+    $scope.newItem = {
+        "id": "",
+        "text": "",
+        "isDone": false,
+        "dateCreation": ""
+    };
+
+    $scope.addItem = todoItem => {
+        todoListService.addItem(todoItem);
+        $state.go('home');
+    };
+};
+// }]);
+
+/***/ }),
+/* 421 */
+/***/ (function(module, exports) {
+
+// import angular from 'angular';
+
+editController.$inject = ['$scope', '$state', 'todoListService', 'todo'];
+
+// angular.module('todo')
+//     .controller('editController', ['$scope', '$state', 'todoListService', 'todo', ($scope, $state, todoListService, todo) => {
+
+let editController = ($scope, $state, todoListService, todo) => {
+    $scope.editItem = todoItem => {
+        todoListService.editItem(todoItem);
+        $state.go('home');
+    };
+    // }]);
+};
 
 /***/ })
 /******/ ]);

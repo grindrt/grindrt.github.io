@@ -1,6 +1,12 @@
-import angular from 'angular';
+// import angular from 'angular';
 
-angular.module('toDo')
-    .controller('homeController', ['$scope', 'todoList', ($scope, todoList)=>{
+homeController.$inject = ['$scope', 'todoList'];
+
+// angular.module('toDo')
+//     .controller('homeController', ['$scope', 'todoList', ($scope, todoList)=>{
+
+	let homeController = ($scope, todoList)=>{
         $scope.todoList = todoList;
-    }])
+    };
+
+    export default homeController;

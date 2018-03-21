@@ -1,7 +1,11 @@
-import angular from 'angular';
+// import angular from 'angular';
 
-angular.module('todo')
-    .controller('addController', ['$scope', '$state', 'todoListService', ($scope, $state, todoListService) => {
+addController.$inject = ['$scope', '$state', 'todoListService'];
+
+// angular.module('todo')
+//     .controller('addController', ['$scope', '$state', 'todoListService', ($scope, $state, todoListService) => {
+
+let addController = ($scope, $state, todoListService) => {
         $scope.newItem = {
             "id": "",
             "text": "",
@@ -13,4 +17,6 @@ angular.module('todo')
             todoListService.addItem(todoItem);
             $state.go('home');
         }
-    }]);
+    }
+    // }]);
+
