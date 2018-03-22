@@ -1,9 +1,9 @@
-<div class="small-container">
+<div class="well">
     <h2>Add item</h2>
-    <form name="newItemForm" class="new-contact-form" ng-submit="addItem(todoItem)" novalidate>
+    <form name="newItemForm" class="form-group" ng-submit="addItem(item)" novalidate>
         <div class="input-container">
-            <label for="todo-text" class="label-reqired">Item are required</label>
-            <textarea id="todo-text" name="todoText" ng-model="todoItem.text" ng-required="true" custom-validator="20"></textarea>
+            <label for="item-text" class="label-reqired">Item are required</label>
+            <textarea id="item-text" class="form-control" rows="5" name="itemText" ng-model="item.text" ng-required="true" custom-validator="20"></textarea>
         </div>
         <div class="submit-container">
             <a class="btn btn_link" ui-sref="home">

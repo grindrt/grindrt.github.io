@@ -15,72 +15,28 @@
 <body>
     <div ng-app="toDoApp">
 
-        <h2>Add a Task</h2>
-        <a class="btn btn_link" ui-sref="add">
-            <span>Add todo</span>
-        </a>
-        <div class="container">
-            <div ui-view></div>
-        </div>
-
-        <div ng-controller="toDoController">
-            <div>
-                <table>
-                    <tr>
-                        <td align="right">Search :</td>
-                        <td>
-                            <input ng-model="searchText" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">Search By :</td>
-                        <td>
-                            <select ng-model="searchField">
-                                <option value="text">Text</option>
-                                <option value="dateCreation">Creation date</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>>
-
-
-                <h3>New ({{ activeTasks.length }}) items</h3>
-                <span ng-if="tasks.length === 0">You have no active tasks!</span>
-                <ul ng-repeat="task in activeTasks | filter:searchTodoItems | orderBy:'dateCreation':false:orderByDay">
-                    <li>
-                        <div>
-                            <p>{{task.text}}</p>
-                            <div>
-                                <span>Creation date: {{task.dateCreation}}</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                <input type="checkbox" id="todo-done-{{task.id}}" ng-model="task.isDone" ng-change="markDone()" />
-                            </div>
-                            <div>
-                                <a ui-sref="edit({ id: task.id })" class="btn btn_link">
-                                    <span>Edit todo</span>
-                                </a>
-                            </div>
-                        </div>
-
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">ToDo App</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#/home">Home</a>
                     </li>
-                </ul>
-            </div>>
-
-            <div>
-                <h3>Done ({{ doneTasks.length }})</h3>
-                <span ng-if="tasks.length === 0">You have no active tasks!</span>
-                <ul ng-repeat="task in doneTasks">
                     <li>
-                        <input type="checkbox" ng-checked="task.isDone" ng-click="removeTask(task)" disabled/> {{ task.text }}
-                        <label> {{ task.dateCreation }}</label>
+                        <a ui-sref="add" >Add item</a>
+                        <!-- <a href="#/add">Add item</a> -->
+                    </li>
+                    <li>
+                        <a href="#/done">Done items</a>
                     </li>
                 </ul>
             </div>
+        </nav>
 
+        <div class="container">
+            <div ui-view></div>
         </div>
     </div>
 

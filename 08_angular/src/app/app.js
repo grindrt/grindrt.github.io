@@ -60,7 +60,7 @@ app.controller('toDoController', ['$scope', 'dbService', function ($scope, dbSer
     }
 }]);
 
-app.controller('addController', ['$scope', '$state', 'dbService', function ($scope, $state, dbService) {
+app.controller('addController', ['$scope', '$state', 'dbService', '$rootScope', function ($scope, $state, dbService, $rootScope) {
     $scope.newItem = {
         "id": "",
         "text": "",
@@ -71,50 +71,73 @@ app.controller('addController', ['$scope', '$state', 'dbService', function ($sco
     $scope.addItem = (todoItem) => {
         // dbService.addItem(todoItem);
         todoItem.dateCreation = Date.now();
-        $scope.activeTasks.push(todoItem);
+        $rootScope.activeTasks.push(todoItem);
         $state.go('home');
     }
 }]);
 
-app.controller('editController', ['$scope', '$state', 'dbService', 'todo', function ($scope, $state, dbService, todo) {
-    $scope.itemCopy = Object.assign({}, todo);
+app.controller('editController', ['$scope', '$state', 'dbService', 'item', '$stateParams', function ($scope, $state, dbService, item, $stateParams) {
+    $scope.itemCopy = Object.assign({}, item);
+    $scope.state = $state.current
+    $scope.params = $stateParams; 
 
     $scope.editItem = (todoItem) => {
         // dbService.addItem(todoItem);
-
-        var item = $scope.activeTasks.filter(function (x) { return x.id === todoItem.id });
+        if(todoItem)
+        {
+            var item = $scope.tasks.filter(function (x) { 
+                if( x.id === todoItem.id ){
+                    x.text = todoItem.text;
+                }
+            });
+        }
 
         $state.go('home');
     }
 }]);
 
-app.config(['$stateProvider', function ($stateProvider) {
+app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
+    //fix for 2f in the url
+    $locationProvider.hashPrefix('');
+    $urlRouterProvider.otherwise('/home');
     $stateProvider
-    .state('home', {
-        url: '/',
-        controller: 'toDoController',
-        templateUrl: 'src/app/templates/index.html'
-    })
-    .state('add', {
-        url: '/add',
-        parent: 'home',
-        controller: 'addController',
-        templateUrl: 'src/app/templates/add.html'
-    })
-    .state('edit', {
-        url: '/edit',
-        parent: 'home',
-        controller: 'editController',
-        templateUrl: 'src/app/templates/edit.html',
-        resolve: {
-            todo: ($stateParams, todoListService) => (
-                todoListService.getToDoList().then((todoList) => (
-                    todoList.find(({ _id }) => _id === $stateParams.id)
-                ))
-            )
-        },
-        onEnter($state, todo) {
-            if (!todo) $state.go('home');
-        }
-    });
+        .state('home', {
+            url: '/home',
+            controller: 'toDoController',
+            templateUrl: 'src/app/templates/home.html'
+        })
+        .state('done', {
+            url: '/done',
+            controller: 'toDoController',
+            templateUrl: 'src/app/templates/doneItems.html'
+        })
+        .state('add', {
+            url: '/add',
+            parent: 'home',
+            controller: 'addController',
+            templateUrl: 'src/app/templates/add.html'
+        })
+        .state('edit', {
+            url: '/edit',
+            parent: 'home',
+            controller: 'editController',
+            templateUrl: 'src/app/templates/edit.html',
+            resolve: {
+                item: function ($stateParams, dbService) {
+                    var params = $stateParams;
+                    return dbService.getToDoList().$promise.then(function (todoList) {
+                        var item = todoList.find(({ _id }) => _id === params.id);
+                        return item;
+                    })
+                }
+            },
+            onEnter($state, item) {
+                if (!item) $state.go('home');
+            }
+        });
 }]);
+app.run(['$rootScope', '$state', '$stateParams',
+  function ($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+}])
