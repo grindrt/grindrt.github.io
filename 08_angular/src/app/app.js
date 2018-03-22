@@ -15,12 +15,6 @@ app.factory("todoFactory", function () {
     };
 });
 
-app.factory('customValidationRule',() => ({
-    validateField(input, isSubmitted) { 
-        return (input.$dirty && input.$touched) || isSubmitted;
-    }
-}));
-
 app.factory('dbService', ['$resource', function ($resource) {
     var data = $resource('http://localhost:8888/todoList', {}, {
         'getToDoList': {
@@ -32,19 +26,37 @@ app.factory('dbService', ['$resource', function ($resource) {
 }]);
 
 app.controller('toDoController', ['$scope', 'dbService', function ($scope, dbService) {
+    $scope.searchField = "";
+    $scope.searchText = "";
+
     dbService.getToDoList().$promise.then(function (tasks) {
         $scope.tasks = tasks;
-        $scope.doneTasks = tasks.filter(function (x) { return x.isDone; });
-        $scope.activeTasks = tasks.filter(function (x) { return !x.isDone; });
-
-        $scope.time = tasks[0].dateCreation
+        updateTodoLists($scope);
     });
 
-    $scope.orderByDay = function (date) {
-        const dif = Date.now() - new Date(date.value);
-        const days = Math.floor(dif / (1000 * 60 * 60 * 24));
+    $scope.orderByDay = function (date1, date2) {
+        return (new Date(date1.value).getTime() > new Date(date2.value).getTime() ? 1 : -1);
+    };
 
-        return days > 0;
+    $scope.searchTodoItems = function (row) {
+        if ($scope.searchField && $scope.searchText) {
+            var propVal = row[$scope.searchField];
+            return propVal
+                ? $scope.searchField === 'text'
+                    ? propVal.toUpperCase().indexOf($scope.searchText.toUpperCase()) == 0
+                    : propVal.toUpperCase().indexOf($scope.searchText.toUpperCase()) > -1
+                : false;
+        }
+        return true;
+    };
+
+    $scope.markDone = function () {
+        updateTodoLists($scope);
+    }
+
+    function updateTodoLists($scope) {
+        $scope.doneTasks = $scope.tasks.filter(function (x) { return x.isDone; });
+        $scope.activeTasks = $scope.tasks.filter(function (x) { return !x.isDone; });
     }
 }]);
 
@@ -77,13 +89,21 @@ app.controller('editController', ['$scope', '$state', 'dbService', 'todo', funct
 }]);
 
 app.config(['$stateProvider', function ($stateProvider) {
-    $stateProvider.state('add', {
+    $stateProvider
+    .state('home', {
+        url: '/',
+        controller: 'toDoController',
+        templateUrl: 'src/app/templates/index.html'
+    })
+    .state('add', {
         url: '/add',
+        parent: 'home',
         controller: 'addController',
         templateUrl: 'src/app/templates/add.html'
-    });
-    $stateProvider.state('edit', {
+    })
+    .state('edit', {
         url: '/edit',
+        parent: 'home',
         controller: 'editController',
         templateUrl: 'src/app/templates/edit.html',
         resolve: {
@@ -98,9 +118,3 @@ app.config(['$stateProvider', function ($stateProvider) {
         }
     });
 }]);
-
-app.filter('capitalize', function() {
-    return function(input) {
-      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
-    }
-});
