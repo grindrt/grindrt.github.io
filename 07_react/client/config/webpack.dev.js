@@ -29,7 +29,10 @@ module.exports = webpackMerge(commonWebpackConfigs, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin([path.resolve(__dirname, '../dist')], {
+      root: path.resolve(__dirname, '..'),
+      verbose: true
+    }),
     new HtmlWebpackPlugin({title: 'Development', filename: './src/client'}),
     new webpack.DefinePlugin({PRODUCTION: JSON.stringify(false)})
   ],
