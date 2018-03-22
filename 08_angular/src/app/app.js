@@ -1,20 +1,5 @@
 let app = angular.module('toDoApp', ['ngResource', 'ui.router']);
 
-app.factory("todoFactory", function () {
-    var taskList = ["New Delhi", "Mumbai", "Kolkata", "Chennai"];
-    return {
-        getTasks: function getTasks() {
-            return taskList;
-        },
-        addTask: function addTask(text) {
-            taskList.push(text);
-        },
-        removeTask: function removeTask(text) {
-            taskList.splice(taskList.indexOf(text), 1)
-        }
-    };
-});
-
 app.factory('dbService', ['$resource', function ($resource) {
     var data = $resource('http://localhost:8888/todoList', {}, {
         'getToDoList': {
@@ -60,7 +45,7 @@ app.controller('toDoController', ['$scope', 'dbService', function ($scope, dbSer
     }
 }]);
 
-app.controller('addController', ['$scope', '$state', 'dbService', '$rootScope', function ($scope, $state, dbService, $rootScope) {
+app.controller('addController', ['$scope', '$state', 'dbService', function ($scope, $state, dbService) {
     $scope.newItem = {
         "id": "",
         "text": "",
@@ -69,9 +54,12 @@ app.controller('addController', ['$scope', '$state', 'dbService', '$rootScope', 
     };
 
     $scope.addItem = (todoItem) => {
+
         // dbService.addItem(todoItem);
-        todoItem.dateCreation = Date.now();
-        $rootScope.activeTasks.push(todoItem);
+
+        var now = new Date();
+        todoItem.dateCreation = now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear();
+        $scope.activeTasks.push(todoItem);
         $state.go('home');
     }
 }]);
@@ -79,14 +67,13 @@ app.controller('addController', ['$scope', '$state', 'dbService', '$rootScope', 
 app.controller('editController', ['$scope', '$state', 'dbService', 'item', '$stateParams', function ($scope, $state, dbService, item, $stateParams) {
     $scope.itemCopy = Object.assign({}, item);
     $scope.state = $state.current
-    $scope.params = $stateParams; 
+    $scope.params = $stateParams;
 
     $scope.editItem = (todoItem) => {
-        // dbService.addItem(todoItem);
-        if(todoItem)
-        {
-            var item = $scope.tasks.filter(function (x) { 
-                if( x.id === todoItem.id ){
+        // dbService.editItem(todoItem);
+        if (todoItem) {
+            var item = $scope.tasks.filter(function (x) {
+                if (x.id === todoItem.id) {
                     x.text = todoItem.text;
                 }
             });
@@ -118,7 +105,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
             templateUrl: 'src/app/templates/add.html'
         })
         .state('edit', {
-            url: '/edit',
+            url: '/edit/:id',
             parent: 'home',
             controller: 'editController',
             templateUrl: 'src/app/templates/edit.html',
@@ -126,7 +113,10 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
                 item: function ($stateParams, dbService) {
                     var params = $stateParams;
                     return dbService.getToDoList().$promise.then(function (todoList) {
-                        var item = todoList.find(({ _id }) => _id === params.id);
+                        var item = todoList.find(function (x) {
+                            var id = +params.id;
+                            return x.id === id;
+                        });
                         return item;
                     })
                 }
@@ -136,8 +126,9 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
             }
         });
 }]);
+
 app.run(['$rootScope', '$state', '$stateParams',
-  function ($rootScope, $state, $stateParams) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-}])
+    function ($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    }])
