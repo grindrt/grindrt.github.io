@@ -1,0 +1,19 @@
+<div class="well">
+    <h2>Add article</h2>
+    <form class="form-group" ng-submit="articleCtrl.addArticle(article)" novalidate>
+        <div class="input-container">
+            <label for="article-title" class="label-reqired">Title</label>
+            <input id="article-title" class="form-control" ng-model="article.title" ng-required="true" custom-validator="20">
+        </div>
+        <div class="input-container">
+            <label for="article-text" class="label-reqired">Text</label>
+            <textarea id="article-text" class="form-control" rows="5" ng-model="article.text" ng-required="true" custom-validator="20"></textarea>
+        </div>
+        <div class="submit-container">
+            <a class="btn btn_link" ui-sref="home">
+                Back
+            </a>
+            <input class="btn btn_submit" type="submit" value="Save">
+        </div>
+    </form> 
+</div>
