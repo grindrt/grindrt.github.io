@@ -5,10 +5,13 @@
         <ul ng-repeat="article in articlesCtrl.articles">
             <li>
                 <div class="alert alert-success">
-                    <label> {{ article.title }}</label>
+                    <label>{{ article.title }}</label>
                     <label>{{ article.date}}</label>
                 </div>
             </li>
         </ul>
+    </div>
+    <div class="text-center">
+        <article-paginator></article-paginator>
     </div>
 </div>
