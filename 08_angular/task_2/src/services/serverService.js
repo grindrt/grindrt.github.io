@@ -8,7 +8,7 @@ dbService.$inject = ['$resource'];
 export default function dbService($resource) {
 
     var data = $resource(config.API_HOST + '/todoList', {}, {
-        'getToDoList': {
+        'getArticleList': {
             method: 'GET',
             isArray: true
         }

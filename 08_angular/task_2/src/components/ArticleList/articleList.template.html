@@ -2,23 +2,21 @@
     <div>
         <h3>Amount of articles: {{ $ctrl.amount }}</h3>
         <span ng-if="$ctrl.amount === 0">You have no articles!</span>
-        <ul ng-repeat="article in $ctrl.articles | pagination: $ctrl.current * $ctrl.pageSize | limitTo: $ctrl.pageSize ">
+        <ul ng-repeat="article in $ctrl.articles | paginationFilter: current * pageSize | limitTo: pageSize ">
             <li>
                 <div class="alert alert-success">
                     <label>{{ article.title }}</label>
                     <label>{{ article.date }}</label>
+                    <label>{{ article.text }}</label>
+                </div>
+                <div>
+                    <a ui-sref="$ctrl.edit({ id: article.id })">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
                 </div>
             </li>
         </ul>
     </div>
 
-<!--     <div>
-        <input value="prev" type="button" ng-disabled="$ctrl.current == 0" ng-click="$ctrl.current = $ctrl.current- 1">
-        <span>Page {{$ctrl.current + 1}} of {{ $ctrl.numberOfPages() }}</span>
-        <input value="next" type="button" ng-disabled="$ctrl.current >= $ctrl.amount/$ctrl.pageSize - 1" ng-click="$ctrl.current = $ctrl.current + 1">       
-    </div> -->
-
-    <div class="text-center">
-        <article-paginator></article-paginator>
-    </div>
+    <pagination-component total="$ctrl.amount"></pagination-component>
 </div>

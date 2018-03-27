@@ -1,6 +1,6 @@
 articleListComponentController.$inject = ['$scope', 'articleStore'];
 
-export default function articleListComponentController($scope, articleStore){
+export default function articleListComponentController($scope, articleStore) {
     let self = this;
     self.amount = 0;
     self.articles = [];
@@ -13,21 +13,14 @@ export default function articleListComponentController($scope, articleStore){
 
     self.updateArticle = (article) => articleStore.updateArticle(article);
 
-    function activate () { 
+    self.edit = (id) => 
+
+    function activate() {
         let articles = articleStore.getArticles() || [];
 
         self.amount = articles.length;
-        self.articles = articles;        
+        self.articles = articles;
+        $scope.current = 0;
+        $scope.pageSize = 10;
     }
-
-
-            self.current = 0;
-            self.pageSize = 10;
-
-            self.numberOfPages = () => {
-                 let n  = Math.ceil(self.amount / self.pageSize)
-                 return n;
-             };
-
-             self.increaseCurrent = () => self.current++;
 }

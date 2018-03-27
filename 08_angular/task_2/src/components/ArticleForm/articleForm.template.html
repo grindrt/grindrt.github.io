@@ -1,13 +1,14 @@
 <div class="well">
-    <h2>Add article</h2>
-    <form class="form-group" ng-submit="articleCtrl.addArticle(article)" novalidate>
+    <h2 ng-if="!$ctrl.id">Add article</h2>
+    <h2 ng-if="$ctrl.id">Edit article</h2>
+    <form class="form-group" ng-submit="$ctrl.addArticle(article)" novalidate>
         <div class="input-container">
             <label for="article-title" class="label-reqired">Title</label>
-            <input id="article-title" class="form-control" ng-model="article.title" ng-required="true" custom-validator="20">
+            <input id="article-title" class="form-control" ng-model="article.title" ng-required="true" article-form-validation>
         </div>
         <div class="input-container">
-            <label for="article-text" class="label-reqired">Text</label>
-            <textarea id="article-text" class="form-control" rows="5" ng-model="article.text" ng-required="true" custom-validator="20"></textarea>
+            <label for="article-text" class="label-reqired">Content</label>
+            <textarea id="article-text" class="form-control" rows="5" ng-model="article.text" ng-required="true" article-form-validation></textarea>
         </div>
         <div class="submit-container">
             <a class="btn btn_link" ui-sref="home">
@@ -17,3 +18,4 @@
         </div>
     </form> 
 </div>
+    

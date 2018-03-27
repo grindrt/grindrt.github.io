@@ -1,4 +1,6 @@
-import mockData from '../../TEST_DATA.json'; 
+import mockData from '../../server/data/TEST_DATA.json'; 
+
+// articleStore.$inject = ['dbService'];
 
 export default function articleStore(){
 	let store = this;
