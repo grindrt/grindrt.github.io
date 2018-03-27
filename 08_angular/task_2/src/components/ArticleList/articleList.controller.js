@@ -1,0 +1,33 @@
+articleListComponentController.$inject = ['$scope', 'articleStore'];
+
+export default function articleListComponentController($scope, articleStore){
+    let self = this;
+    self.amount = 0;
+    self.articles = [];
+
+    self.$onInit = activate();
+
+    self.addArticle = (article) => articleStore.addArticle(article);
+
+    self.deleteArticle = (article) => articleStore.deleteArticle(id);
+
+    self.updateArticle = (article) => articleStore.updateArticle(article);
+
+    function activate () { 
+        let articles = articleStore.getArticles() || [];
+
+        self.amount = articles.length;
+        self.articles = articles;        
+    }
+
+
+            self.current = 0;
+            self.pageSize = 10;
+
+            self.numberOfPages = () => {
+                 let n  = Math.ceil(self.amount / self.pageSize)
+                 return n;
+             };
+
+             self.increaseCurrent = () => self.current++;
+}

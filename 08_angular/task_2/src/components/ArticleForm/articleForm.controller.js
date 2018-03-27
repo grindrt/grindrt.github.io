@@ -1,6 +1,6 @@
-articleFormController.$inject = ['$scope'];
+articleFormController.$inject = ['$scope', 'articleStore'];
 
-export default function articleFormController($scope){
-    let vm = this;
+export default function articleFormController($scope, articleStore){
+    let self = this;
 
 }
