@@ -1,5 +1,5 @@
 import uirouter from 'angular-ui-router';
-import ngresource from 'ng-resource';
+// import ngresource from 'ng-resource';
 
 import './services/serverService';
 import articleStore from './services/articleStore';
@@ -14,7 +14,7 @@ import paginationFilter from './components/ArticleList/Pagination/pagination.fil
 
 angular.module('blogApp', [
 	uirouter,
-	ngresource,
+	// ngresource,
 	articleForm
 ])
 	// .factory('dbService', dbService)

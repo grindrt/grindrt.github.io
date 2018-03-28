@@ -4,23 +4,27 @@ export default function articleFormRouting($stateProvider) {
     $stateProvider
         .state('article', {
             url: '/article/add',
-            controller: 'articleFormController',
-            template: require('./articleForm.template.html') //'src/templates/articles.html'
+            controller: 'articleFormController as articleCtrl',
+            template: require('./articleForm.template.html'),
+            resolve: {
+                item: function() { return {} }
+            }
         })
         .state('articleEdit', {
             url: '/article/:id/edit',
-            controller: 'articleFormController',
+            controller: 'articleFormController as articleCtrl',
             template: require('./articleForm.template.html'),
+            params:{
+                id: null
+            },
             resolve: {
                 item: function ($stateParams, articleStore) {
                     var params = $stateParams;
-                    return articleStore.getArticles().then(function (articles) {
-                        var item = articles.find(function (x) {
+                    return articleStore.getArticles().find(function (x) {
                             var id = +params.id;
                             return x.id === id;
-                        });
-                        return item;
-                    })
+                        }
+                    );
                 }
             },
             onEnter($state, item) {

@@ -1,6 +1,6 @@
-articleListComponentController.$inject = ['$scope', 'articleStore'];
+articleListComponentController.$inject = ['$scope', '$state', 'articleStore'];
 
-export default function articleListComponentController($scope, articleStore) {
+export default function articleListComponentController($scope, $state, articleStore) {
     let self = this;
     self.amount = 0;
     self.articles = [];
@@ -13,7 +13,10 @@ export default function articleListComponentController($scope, articleStore) {
 
     self.updateArticle = (article) => articleStore.updateArticle(article);
 
-    self.edit = (id) => 
+    self.edit = (id) => {
+        console.log(id);
+        $state.go('articleEdit', { id: id});
+    }
 
     function activate() {
         let articles = articleStore.getArticles() || [];

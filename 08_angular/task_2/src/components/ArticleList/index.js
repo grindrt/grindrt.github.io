@@ -10,7 +10,8 @@ let articleListComponent = {
         	articles: '=',
         	current: '=',
         	pageSize: '=',
-        	numberOfPages: '='
+        	numberOfPages: '=',
+                edit: '='
         }
 }
 
