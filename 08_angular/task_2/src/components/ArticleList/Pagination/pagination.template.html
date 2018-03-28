@@ -1,0 +1,15 @@
+<div>
+	<ul class="pagination" >
+		<li ng-if="boundaryLinks" ng-disabled="$ctrl.current == 1">
+			<a href="" ng-click="$ctrl.setCurrent($ctrl.current - 1)">Prev</a>
+		</li>
+
+		<li ng-repeat="pageNumber in $ctrl.pages track by $index" ng-class="{ active: $ctrl.current == pageNumber.value, disabled: pageNumber == '...' }">
+			<a href="" ng-click="$ctrl.setCurrent(pageNumber.value)">{{pageNumber.name}}</a>
+		</li>
+
+		<li ng-if="boundaryLinks" ng-disabled="$ctrl.current >= $ctrl.amount / $ctrl.pagesize-1">
+			<a href="" ng-click="$ctrl.setCurrent($ctrl.current + 1)">Next</a>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,14 @@
+<div ng-controller="toDoController">
+    <div>
+        <h3>Done ({{ doneTasks.length }})</h3>
+        <span ng-if="tasks.length === 0">You have no active tasks!</span>
+        <ul ng-repeat="task in doneTasks">
+            <li>
+                <div class="alert alert-success">
+                    <input type="checkbox" ng-checked="task.isDone" ng-click="removeTask(task)" disabled/> {{ task.text }}
+                    <label> {{ task.dateCreation }}</label>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

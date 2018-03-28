@@ -1,0 +1,20 @@
+<div class="well">
+    <h2>Edit item</h2>
+    <form name="updateItemForm" ng-submit="editItem(itemCopy)" novalidate>
+        <div class="form-group required">
+            <label for="item-text" class="label-reqired">Todo</label>
+            <textarea id="item-text" class="form-control" rows="5" name="itemText" ng-model="itemCopy.text" ng-required="true" custom-validator="20"></textarea>
+            <div class="help-block" ng-messages="updateItemForm.itemText.$error" ng-if="validateField(updateItemForm.itemText, updateItemForm.$submitted)">
+                <p ng-message="customValidator">Minimum length of a todo text: 20 symbols..</p>
+                <p ng-message="required">Text is required.</p>
+            </div>
+        </div>
+        <div class="submit-container">
+            <a class="btn btn_link" ui-sref="home">
+                Back
+            </a>
+            <input class="btn btn_submit" type="submit" value="Change details">
+        </div>
+    </form>
+</div>
+    
