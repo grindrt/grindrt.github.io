@@ -1,6 +1,7 @@
 import 'angular-mocks';
 import 'chai';
 import 'sinon';
+import 'mocha';
 
 chai.use('sinon-chai');
 chai.use('chai-as-promised');
