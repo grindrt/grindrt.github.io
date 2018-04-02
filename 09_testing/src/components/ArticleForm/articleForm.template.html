@@ -1,0 +1,20 @@
+<div class="well">
+    <h2>{{ pageTitle }}</h2>
+    <form class="form-group" ng-submit="articleCtrl.submit(article)" name="articleCtrl.artForm" novalidate>
+        <div class="input-container">
+            <label for="article-title" class="label-reqired">Title</label>
+            <input id="article-title" class="form-control" name="title" ng-model="article.title" ng-required="true" article-form-validation>
+        </div>
+        <div class="input-container">
+            <label for="article-text" class="label-reqired">Content</label>
+            <textarea id="article-text" class="form-control" rows="5" name="article.text" ng-model="article.text" ng-required="true" article-form-validation></textarea>
+        </div>
+        <div class="submit-container">
+            <a class="btn btn_link" ui-sref="home">
+                Back
+            </a>
+            <input class="btn btn_submit" type="submit" value="Save">
+        </div>
+    </form> 
+</div>
+    

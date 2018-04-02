@@ -1,0 +1,1 @@
+export default () => ((input, start) => (input.slice(+start)));
