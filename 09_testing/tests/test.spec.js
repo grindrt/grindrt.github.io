@@ -20,7 +20,9 @@ describe('articleStore', function () {
 
     }));
 
-    afterEach(() => suite = null);
+    afterEach(function(){
+        suite = null;
+    });
 
     it('addArticle going well', function (done) {
         let newArticle = { id: 1 };

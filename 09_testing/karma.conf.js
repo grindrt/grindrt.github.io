@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Mon Apr 02 2018 22:43:04 GMT+0300 (Belarus Standard Time)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['browserify', 'jasmine', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
@@ -27,8 +27,24 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'test/**/*.js': ['browserify'],
+      'tests/**/*.spec.js': ['coverage']
     },
 
+    coverageReporter: {
+      type: 'html',
+      dir: './coverage'
+    },
+
+    browserify: {
+      debug: true,
+      transform: ['brfs'],
+      configure: function (bundle) {
+        bundle.on('prebundle', function () {
+          bundle.external('foobar');
+        });
+      }
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
