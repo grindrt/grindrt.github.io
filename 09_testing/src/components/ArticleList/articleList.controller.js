@@ -14,9 +14,8 @@ export default function articleListComponentController($scope, $state, articleSt
     self.updateArticle = (article) => articleStore.updateArticle(article);
 
     self.edit = (id) => {
-        console.log(id);
         $state.go('articleEdit', { id: id});
-    }
+    };
 
     function activate() {
         let articles = articleStore.getArticles() || [];
@@ -25,5 +24,5 @@ export default function articleListComponentController($scope, $state, articleSt
         self.articles = articles;
         $scope.current = 0;
         $scope.pageSize = 10;
-    }
+    };
 }

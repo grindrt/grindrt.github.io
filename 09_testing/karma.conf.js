@@ -1,4 +1,4 @@
-var webpackConfig = require('./webpack.test.config');
+var webpackConfig = require('./webpack.config');
 
 // Karma configuration
 // Generated on Mon Apr 02 2018 22:43:04 GMT+0300 (Belarus Standard Time)
@@ -12,25 +12,16 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'
-      , 'browserify'
-      // , 'requirejs'
-    ],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      './node_modules/angular/angular.js',
-      './node_modules/angular-ui-router/release/angular-ui-router.js',
-      './node_modules/angular-mocks/angular-mocks.js',
-      './tests/test-context.js',
-      // // './tests/test.js'
-      // './tests/*.spec.js'
-      // // './tests/**/*.spec.js'
-      './src/services/articleStore.js',
-      './src/routings/routing.js',
-      './src/components/ArticleForm/index.js',
-      './src/components/ArticleList/index.js',
+      'node_modules/angular/angular.js', 
+      'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/angular-ui-router/release/angular-ui-router.js',
+      // './tests/test-context.js',
+      './src/**/*.spec.js'
     ],
 
 
@@ -42,59 +33,27 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      // 'test-context.js': ['browserify']
-            'tests/**/test-context.js': ['webpack']
-      // ,
-      // 'tests/**/*.spec.js': ['browserify']
-      // 'tests/**/*.spec.js': ['coverage']
+      // 'tests/test-context.js': ['webpack', 'coverage'],
+      'src/**/*.spec.js': ['webpack', 'coverage']
     },
 
-    webpack: {
-      module: {
-        rules: [
-          {
-            test: /\.js/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-                presets: ['es2015']
-            }
-          },
-          {
-              test: /\.html$/,
-              use: 'html-loader'
-          }
-        ]
-      }
-    },
+
+    webpack: webpackConfig,
+
 
     webpackServer: { noInfo: true },
+    
 
-    // webpackMiddleware: {
-    //   noInfo: true
-    // },
-
-    // coverageReporter: {
-    //   type: 'html',
-    //   dir: './coverage'
-    // },
-
-    browserify: {
-      debug: true,
-      transform: ['brfs'],
-      configure: function (bundle) {
-        bundle.on('prebundle', function () {
-          bundle.external('foobar');
-        });
-      }
+    coverageReporter: {
+      type: 'html',
+      dir: './coverage'
     },
+
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'
-      // , 'coverage'
-    ],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
