@@ -1,9 +1,10 @@
-import mockData from '../../server/data/TEST_DATA.json'; 
+// import mockData from '../../server/data/TEST_DATA.json'; 
 
 // articleStore.$inject = ['dbService'];
 
 export default function articleStore(){
-	let store = this;
+	let store = this;	
+		
 	let articlesList = mockData || [];
 	let getArticleIndex = (id) => (articlesList.map((x)=>(x.id)).indexOf(id));
 

@@ -1,7 +1,7 @@
 require('angular');
 require('angular-mocks');
 
-let testContext = require.context(".", true, /\.spec\.js$/);
+var testContext = require.context(".", true, /\.spec\.js$/);
 testContext.keys().forEach(testContext);
 
 // import 'angular';
